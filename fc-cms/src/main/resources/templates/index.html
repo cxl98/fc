@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content=no-cache/ http-equiv=Cache-Control>
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="layout">
+        <layout :style="{minHeight: '100vh'}">
+            <sider collapsible :collapsed-width="78" v-model="isCollapsed">
+                <i-menu  theme="dark" width="auto" :class="menuitemClasses" open-names="['1','2']">
+                    <submenu name="1">
+                        <template slot="title">
+                            用户管理
+                            <icon type="ios-paper" />
+                        </template>
+                        <menu-item name="1-1">新增用户></menu-item>
+                        <menu-item name="1-2">用户查询></menu-item>
+                        <menu-item name="1-3">
+                        <span onclick="deleteuser()">删除用户
+                        </span>></menu-item>
+                    </submenu>
+                    <submenu name="2">
+                        <template slot="title">
+                            问卷管理
+                            <icon type="ios-people" />
+                        </template>
+                        <menu-item name="2-1">
+                            <span onclick="analyzing()">
+                                答题情况
+                            </span></menu-item>
+                        <menu-item name="2-2">
+                            <span onclick="analyzing()">
+                                综合分析
+                            </span></menu-item>
+                        <menu-item name="2-3">
+                            <span onclick="addQuestion()">
+                                更新题库
+                            </span></menu-item>
+                    </submenu>
+                    <submenu name="3">
+                        <template slot="title">
+                            <span onclick="listener()">
+                                聊天室监控
+                            </span>
+                            <icon type="ios-stats" />
+                        </template>
+                    </submenu>
+                </i-menu>
+            </sider>
+            <layout>
+                <i-header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
+                    <h2 style="margin-left: 20px">欢迎您!管理员</h2>
+                </i-header>
+                <i-content :style="{padding: '0 16px 16px'}">
+                    <breadcrumb :style="{margin: '16px 0'}">
+                    </breadcrumb>
+                    <card>
+                        <div style="height: 100%">
+                        </div>
+                    </card>
+                </i-content>
+            </layout>
+        </layout>
+    </div>
+</div>
+<script>
+
+
+</script>
+</body>
+
+</html>
+
