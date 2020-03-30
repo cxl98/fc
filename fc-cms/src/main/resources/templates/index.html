@@ -23,30 +23,29 @@
                         <menu-item name="1-1">新增用户></menu-item>
                         <menu-item name="1-2">用户查询></menu-item>
                         <menu-item name="1-3">
-                        <span onclick="deleteuser()">删除用户
-                        </span>></menu-item>
+                        <span>删除用户</span>></menu-item>
                     </submenu>
                     <submenu name="2">
                         <template slot="title">
-                            问卷管理
+                            游戏监控
                             <icon type="ios-people" />
                         </template>
                         <menu-item name="2-1">
-                            <span onclick="analyzing()">
+                            <span>
                                 答题情况
                             </span></menu-item>
                         <menu-item name="2-2">
-                            <span onclick="analyzing()">
+                            <span>
                                 综合分析
                             </span></menu-item>
                         <menu-item name="2-3">
-                            <span onclick="addQuestion()">
+                            <span>
                                 更新题库
                             </span></menu-item>
                     </submenu>
                     <submenu name="3">
                         <template slot="title">
-                            <span onclick="listener()">
+                            <span>
                                 聊天室监控
                             </span>
                             <icon type="ios-stats" />
@@ -71,6 +70,22 @@
     </div>
 </div>
 <script>
+    var mVue = new Vue({
+        el:'#app',
+        data(){
+            return {
+                isCollapsed: false
+            }
+        },
+        computed: {
+            menuitemClasses: function () {
+                return [
+                    'menu-item',
+                    this.isCollapsed ? 'collapsed-menu' : ''
+                ]
+            },
+        },
+    })
 
 
 </script>

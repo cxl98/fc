@@ -57,6 +57,7 @@ public class NettyServer implements Runnable{
     }
 
     public static void main(String[] args) {
+
         new NettyServer(8888);
     }
 }
