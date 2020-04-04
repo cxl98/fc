@@ -1,14 +1,21 @@
 package com.easyarch.service;
 
-public interface ChatService {
+import com.easyarch.entity.SendMessage;
+import io.netty.channel.ChannelHandlerContext;
 
+public interface ChatService {
 
     /**
      *
-     * @param msg 发送的消息
-     * @param userId 要发送给的玩家
+     * @param sm 发送的消息类型
      * @return 是否发送成功
      */
-    boolean sendMessage(String msg,String userId,String fromId);
+    boolean sendMessageToOne(ChannelHandlerContext ctx, SendMessage sm);
+
+    boolean sendMessageToGroup(ChannelHandlerContext ctx,SendMessage sm);
+
+    boolean sendMessageToAll(ChannelHandlerContext ctx,SendMessage sm);
+
+
 
 }
