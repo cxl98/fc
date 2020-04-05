@@ -1,6 +1,6 @@
 package com.easyarch.handler;
 
-import com.easyarch.entity.ChatType;
+import com.easyarch.entity.MsgType;
 import com.easyarch.entity.SendMessage;
 import com.easyarch.service.imp.ChatServiceImp;
 import io.netty.channel.ChannelHandlerContext;
@@ -19,13 +19,12 @@ public class SendHandler extends SimpleChannelInboundHandler<SendMessage> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SendMessage msg) throws Exception {
 
-        if(msg.getType()== ChatType.ALL){
-
+        if(msg.getType()== MsgType.ALL){
             chatServiceImp.sendMessageToAll(msg);
-        }else if(msg.getType()==ChatType.GROUP){
+        }else if(msg.getType()== MsgType.GROUP){
 
             chatServiceImp.sendMessageToGroup(msg);
-        }else if(msg.getType()==ChatType.ONE){
+        }else if(msg.getType()== MsgType.ONE){
 
             chatServiceImp.sendMessageToOne(msg);
         }else{

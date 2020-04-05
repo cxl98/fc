@@ -34,7 +34,7 @@ public class ChatServiceImp implements ChatService {
 
     @Override
     public boolean sendMessageToGroup(SendMessage sm) {
-
+        //
         return false;
     }
 

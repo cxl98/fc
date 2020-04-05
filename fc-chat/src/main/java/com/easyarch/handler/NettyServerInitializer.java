@@ -20,6 +20,8 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     //注册进map中
     public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
+
+
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
@@ -38,6 +40,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         //处理信息
         pipeline.addLast(new SendHandler());
         pipeline.addLast(new LoginHandler(ch.id()));
+        pipeline.addLast(new GroupHandler());
     }
 
     static {

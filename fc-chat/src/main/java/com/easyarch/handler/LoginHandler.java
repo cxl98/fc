@@ -23,6 +23,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<UserInfo> {
         UserInfo user = userService.login(msg);
         if(user!=null){
             NettyServerInitializer.userMap.put(msg.getUserId(),id);
+
             ctx.writeAndFlush("登陆成功");
         }
         ctx.writeAndFlush("登录失败");
