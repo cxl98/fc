@@ -5,7 +5,7 @@ import com.easyarch.utils.ReturnT;
 
 public interface UserService {
 
-    boolean login(UserInfo user);
+    UserInfo login(UserInfo user);
 
     boolean regist(UserInfo user);
 

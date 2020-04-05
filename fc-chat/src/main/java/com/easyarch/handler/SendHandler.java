@@ -20,14 +20,20 @@ public class SendHandler extends SimpleChannelInboundHandler<SendMessage> {
     protected void channelRead0(ChannelHandlerContext ctx, SendMessage msg) throws Exception {
 
         if(msg.getType()== ChatType.ALL){
-            chatServiceImp.sendMessageToAll(ctx,msg);
+
+            chatServiceImp.sendMessageToAll(msg);
         }else if(msg.getType()==ChatType.GROUP){
-            chatServiceImp.sendMessageToGroup(ctx,msg);
+
+            chatServiceImp.sendMessageToGroup(msg);
         }else if(msg.getType()==ChatType.ONE){
-            chatServiceImp.sendMessageToOne(ctx,msg);
+
+            chatServiceImp.sendMessageToOne(msg);
         }else{
+            ctx.writeAndFlush("发送失败");
             throw new Exception("消息类型出错了!");
         }
+
+        ctx.writeAndFlush("发送成功");
 
     }
 
