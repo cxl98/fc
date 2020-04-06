@@ -11,10 +11,12 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     //所有人组
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);

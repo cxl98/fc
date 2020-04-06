@@ -8,11 +8,13 @@ import com.easyarch.service.imp.GroupServiceImp;
 import com.easyarch.service.imp.UserServiceImp;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 管理消息分发
  */
+@Slf4j
 public class MessageHandler extends SimpleChannelInboundHandler<Message> {
 
     @Autowired

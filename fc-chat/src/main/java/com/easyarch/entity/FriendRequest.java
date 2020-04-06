@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class FriendRequest implements Serializable {
     private String fromId;
     private String toId;
-    private short type;   //处理结果
+    private short  status;
 
     private String msg;
 
