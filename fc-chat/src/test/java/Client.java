@@ -1,10 +1,27 @@
 import com.easyarch.dao.UserDao;
 import com.easyarch.entity.UserInfo;
 
+
+import com.easyarch.handler.NettyEncoder;
+import com.easyarch.utils.ProtoStuffSerializer;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 
@@ -12,18 +29,57 @@ import java.io.InputStream;
 
 
 public class Client {
-    public static String host = "localhost";
-    public static int port = 8888;
 
+
+    @Test
     public void connect(){
+        try {
+            Bootstrap client = new Bootstrap();
 
+            EventLoopGroup group = new NioEventLoopGroup();
+            client.group(group);
+
+            client.channel(NioSocketChannel.class);
+
+            client.handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel ch) throws Exception {
+                    ch.pipeline().addLast(new DelimiterBasedFrameDecoder(
+                            Integer.MAX_VALUE, Delimiters.lineDelimiter()[0]));
+
+//                    ch.pipeline().addLast(new NettyEncoder(UserInfo.class,new ProtoStuffSerializer()));
+                    ch.pipeline().addLast(new StringDecoder());
+                    ch.pipeline().addLast(new StringEncoder());
+
+                    ch.pipeline().addLast(new SimpleClientHandler());
+                }
+            });
+
+            ChannelFuture future = client.connect("localhost",8888).sync();
+
+            String userId = "184500237";
+            String pwd = "123456";
+            String userName = "sujia";
+            UserInfo uf = new UserInfo();
+            uf.setUserId(userId);
+            uf.setUserPwd(pwd);
+            uf.setUserName(userName);
+//            System.out.println(uf.getUserName());
+            future.channel().writeAndFlush(uf);
+            System.out.println("发送");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-    private static SqlSession session;
+
+
+
+
+
 
     private static UserDao mapper=null;
-
     static {
-
         //mybatis的配置文件
         String resource = "mybatis/mybatis.xml";
 
@@ -38,22 +94,28 @@ public class Client {
         //构建sqlSession的工厂
         //SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
         //创建能执行映射文件中sql的sqlSession
-
-        session = sessionFactory.openSession();
+        SqlSession session = sessionFactory.openSession();
         mapper = session.getMapper(UserDao.class);
 
     }
 
-    @Test
-    public void regist(){
-        String userId = "184500237";
-        String pwd = "123456";
-        String userName = "sujia";
-        UserInfo uf = new UserInfo();
-        uf.setUserId(userId);
-        uf.setUserPwd(pwd);
-        uf.setUserName(userName);
-        mapper.insertUser(uf);
-    }
+
+//    public void regist(){
+//        String userId = "184500237";
+//        String pwd = "123456";
+//        String userName = "sujia";
+//        UserInfo uf = new UserInfo();
+//        uf.setUserId(userId);
+//        uf.setUserPwd(pwd);
+//        uf.setUserName(userName);
+//        mapper.insertUser(uf);
+//    }
+
+
+//    @After
+//    public void disConnect(){
+//
+//    }
+
 
 }

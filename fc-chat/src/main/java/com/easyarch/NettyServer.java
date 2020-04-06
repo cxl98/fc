@@ -2,7 +2,7 @@ package com.easyarch;
 
 import com.easyarch.handler.NettyServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -13,13 +13,11 @@ import java.util.concurrent.Executors;
 
 public class NettyServer implements Runnable{
     private int port;
-    private String ip;
     public static ExecutorService pool = Executors.newFixedThreadPool(20);
 
 
 
-    private NettyServer(String ip, int port){
-        this.ip=ip;
+    private NettyServer( int port){
         this.port=port;
     }
     @Override
@@ -32,8 +30,8 @@ public class NettyServer implements Runnable{
             bootstrap.channel(NioServerSocketChannel.class);
             bootstrap.childHandler(new NettyServerInitializer());
 
-            ChannelFuture future = bootstrap.bind(ip,port).sync();
-            Channel f = future.channel();
+            ChannelFuture future = bootstrap.bind(port).sync();
+            future.channel().closeFuture().sync();
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -41,12 +39,12 @@ public class NettyServer implements Runnable{
             workGroup.shutdownGracefully();
         }
 
-        System.out.println("close");
+//        System.out.println("close");
     }
 
     public static void main(String[] args) {
 
-        new Thread(new NettyServer("localhost",8888)).start();
+        new Thread(new NettyServer(8888)).start();
 
 
 

@@ -54,5 +54,27 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
     }
 
 
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("Message----------register----------");
+        super.channelRegistered(ctx);
+    }
 
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("Message----------unregister----------");
+        super.channelUnregistered(ctx);
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("Message----------active----------");
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("Message----------inactive----------");
+        super.channelInactive(ctx);
+    }
 }

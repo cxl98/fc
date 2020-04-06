@@ -2,7 +2,6 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
-import junit.framework.AssertionFailedError;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
