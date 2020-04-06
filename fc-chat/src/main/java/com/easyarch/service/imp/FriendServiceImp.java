@@ -9,5 +9,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FriendServiceImp {
-
+    public Object getObj(Object obj){
+        return null;
+    }
 }

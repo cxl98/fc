@@ -16,7 +16,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
+    //所有人组
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+
     //注册进map中
     public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
@@ -38,9 +40,8 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("encoder",new StringEncoder());
         pipeline.addLast("framer",new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()) );
         //处理信息
-        pipeline.addLast(new SendHandler());
+        pipeline.addLast(new MessageHandler());
         pipeline.addLast(new LoginHandler(ch.id()));
-        pipeline.addLast(new GroupHandler());
     }
 
     static {

@@ -1,21 +1,32 @@
 package com.easyarch.service.imp;
 
-import com.easyarch.NettyServer;
+import com.easyarch.entity.Type.MsgType;
 import com.easyarch.entity.SendMessage;
 import com.easyarch.handler.NettyServerInitializer;
 import com.easyarch.service.ChatService;
 import com.easyarch.utils.TimeUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
+import io.netty.channel.group.ChannelGroup;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 @Service
 public class ChatServiceImp implements ChatService {
 //    Lo
+
+    public Object getObj(Object msg){
+        SendMessage sm = (SendMessage)msg;
+        short type = sm.getType();
+        if(type == MsgType.ALL){
+            return sendMessageToAll(sm);
+        }else if(type== MsgType.GROUP){
+            return sendMessageToGroup(sm);
+        }else if(type== MsgType.ONE){
+            return sendMessageToOne(sm);
+        }else{
+            return "消息类型错误";  //未来要将错误也转化成错误代数
+        }
+    }
 
     @Override
     public boolean sendMessageToOne(SendMessage sm) {
@@ -34,7 +45,13 @@ public class ChatServiceImp implements ChatService {
 
     @Override
     public boolean sendMessageToGroup(SendMessage sm) {
-        //
+        String groupId = sm.getToGroupId();
+        ChannelGroup cg = GroupServiceImp.groupMap.get(groupId);
+        if(cg!=null){
+            cg.writeAndFlush(sm);
+            return true;
+        }
+        System.out.println("发送失败");
         return false;
     }
 

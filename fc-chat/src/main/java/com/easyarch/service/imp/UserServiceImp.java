@@ -7,7 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImp implements UserService {
-    private UserDao dao;
+    private UserDao dao ;
+
+    public Object getObj(Object obj){
+        //从handler转发到service层的obj  处理
+        //这里简略，只处理了登录
+        UserInfo user = (UserInfo)obj;
+        return login(user);
+    }
 
     @Override
     public UserInfo login(UserInfo user) {
@@ -26,6 +33,7 @@ public class UserServiceImp implements UserService {
     }
 
     private boolean isUser(String id){
+
         return dao.searchById(id) != 0;
     }
 }

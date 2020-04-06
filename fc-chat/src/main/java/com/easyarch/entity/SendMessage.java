@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class SendMessage implements Serializable {
     private static final long serialVersionUID=2L;
     private String fromId;     //发送人
-    private MsgType type;      //私聊或者群聊
+    private short type;      //私聊或者群聊
 
     private String toGroupId;  //发送给哪个群
 

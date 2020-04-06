@@ -13,9 +13,8 @@ public class LoginHandler extends SimpleChannelInboundHandler<UserInfo> {
     public UserService userService;
     private ChannelId id ;
 
-    public LoginHandler(ChannelId id){
+    LoginHandler(ChannelId id){
         this.id = id;
-
     }
 
     @Override
