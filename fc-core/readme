@@ -2,9 +2,9 @@
 
 
 
-controller---
+com.easyArch.controller---
 
-entity---包含各种实体类
-utils----包含各种工具类
+com.easyArch.entity---包含各种实体类
+com.easyArch.utils----包含各种工具类
 
-net------网络相关
+com.easyArch.net------网络相关
