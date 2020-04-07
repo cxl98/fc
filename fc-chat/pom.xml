@@ -62,13 +62,23 @@
         <!--  序列化   -->
         <dependency>
             <groupId>io.protostuff</groupId>
-            <artifactId>protostuff-api</artifactId>
+            <artifactId>protostuff-core</artifactId>
             <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-api</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
         <dependency>
@@ -76,6 +86,16 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-api</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dyuproject.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>1.0.8</version>
         </dependency>
     </dependencies>
 

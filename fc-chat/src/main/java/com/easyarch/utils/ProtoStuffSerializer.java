@@ -1,9 +1,10 @@
 package com.easyarch.utils;
 
-import com.dyuproject.protostuff.LinkedBuffer;
-import com.dyuproject.protostuff.ProtostuffIOUtil;
-import com.dyuproject.protostuff.Schema;
-import com.dyuproject.protostuff.runtime.RuntimeSchema;
+
+import io.protostuff.LinkedBuffer;
+import io.protostuff.ProtostuffIOUtil;
+import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
 import org.springframework.objenesis.Objenesis;
 import org.springframework.objenesis.ObjenesisStd;
 
@@ -31,7 +32,7 @@ public class ProtoStuffSerializer extends Serializer {
     public <T> byte[] serializer(T obj) {
         @SuppressWarnings("unchecked")
         Class<T> clazz= (Class<T>) obj.getClass();
-        LinkedBuffer buffer=LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+        LinkedBuffer buffer= LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
 
         try {
             Schema<T> schema=getSchema(clazz);
