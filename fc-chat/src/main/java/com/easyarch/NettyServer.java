@@ -4,6 +4,7 @@ import com.easyarch.handler.NettyServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -28,7 +29,8 @@ public class NettyServer implements Runnable{
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup,workGroup);
             bootstrap.channel(NioServerSocketChannel.class);
-            bootstrap.childHandler(new NettyServerInitializer());
+            bootstrap.childHandler(new NettyServerInitializer()).childOption(ChannelOption.TCP_NODELAY, true)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);;
 
             ChannelFuture future = bootstrap.bind(port).sync();
             future.channel().closeFuture().sync();
@@ -41,6 +43,12 @@ public class NettyServer implements Runnable{
 
 //        System.out.println("close");
     }
+
+
+
+
+
+
 
     public static void main(String[] args) {
 

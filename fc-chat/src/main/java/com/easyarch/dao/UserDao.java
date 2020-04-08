@@ -1,6 +1,7 @@
 package com.easyarch.dao;
 
 import com.easyarch.entity.UserInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Repository

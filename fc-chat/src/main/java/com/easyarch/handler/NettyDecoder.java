@@ -31,6 +31,7 @@ public class NettyDecoder extends ByteToMessageDecoder {
             return ;
         }
         byte [] data=new byte[dataLength];
+
 //        System.out.println(dataLength);
         in.readBytes(data);
 //        System.out.println(data);

@@ -1,5 +1,7 @@
 package com.easyarch.handler;
 
+import com.easyarch.NettyServer;
+import com.easyarch.entity.UserInfo;
 import com.easyarch.handler.model.CODE;
 import com.easyarch.handler.model.Message;
 import com.easyarch.service.imp.ChatServiceImp;
@@ -17,40 +19,73 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 public class MessageHandler extends SimpleChannelInboundHandler<Message> {
 
-    @Autowired
-    public ChatServiceImp chatServiceImp;
+    public ChatServiceImp chatServiceImp = new ChatServiceImp();
 
-    @Autowired
-    public FriendServiceImp friendServiceImp;
+    public FriendServiceImp friendServiceImp = new FriendServiceImp();
 
-    @Autowired
-    public UserServiceImp userServiceImp;
+    public UserServiceImp userServiceImp = new UserServiceImp();
 
-    @Autowired
-    public GroupServiceImp groupServiceImp;
+    public GroupServiceImp groupServiceImp = new GroupServiceImp();
 
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
         int msgType = msg.getMsgCode();
+        System.out.println("code:"+msgType);
         Object obj = msg.getObj();
         //根据消息代码 分发给不同的service处理...
-        Object res = null;
         if(msgType<10){
-            if(msgType == CODE.LOGIN){
-                res = userServiceImp.getObj(obj);
-            }else if(msgType == CODE.MESSAGE){
-                res = chatServiceImp.getObj(obj);
+            if(msgType == CODE.REGIST){
+                System.out.println("REGIST");
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(userServiceImp.regist((UserInfo) obj)){
+                            msg.setObj(userServiceImp.getObj(obj));
+                        }else{
+                            msg.setObj("Error");
+                        }
+                        ctx.writeAndFlush(msg);
+                    }
+                });
+            }else if(msgType == CODE.LOGIN){
+                System.out.println("LOGIN");
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        msg.setObj(userServiceImp.getObj(obj));
+                        ctx.writeAndFlush(msg);
+                    }
+                });
+            }
+            else if(msgType == CODE.MESSAGE){
+                System.out.println("SEND MESSAGE");
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(obj);
+                        msg.setObj(chatServiceImp.getObj(obj));
+                    }
+                });
             }else if(msgType == CODE.GROUP){
-                res = groupServiceImp.getObj(obj);
+                System.out.println("SEND GROUP MESSAGE");
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        msg.setObj(groupServiceImp.getObj(obj));
+                    }
+                });
             }else if (msgType == CODE.FRIEND){
-                res = friendServiceImp.getObj(obj);
+                System.out.println("FRIEND");
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        msg.setObj(friendServiceImp.getObj(obj));
+                        ctx.writeAndFlush(msg);
+                    }
+                });
             }
         }
-        if (res != null) {
-            ctx.writeAndFlush(res);
-        }
-        ctx.writeAndFlush("error");//返回一个错误信息
     }
 
 
@@ -69,6 +104,7 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Message----------active----------");
+        ctx.channel().read();
         super.channelActive(ctx);
     }
 

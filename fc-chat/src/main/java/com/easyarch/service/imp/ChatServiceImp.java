@@ -3,6 +3,8 @@ package com.easyarch.service.imp;
 import com.easyarch.entity.Type.MsgType;
 import com.easyarch.entity.SendMessage;
 import com.easyarch.handler.NettyServerInitializer;
+import com.easyarch.handler.model.CODE;
+import com.easyarch.handler.model.Message;
 import com.easyarch.service.ChatService;
 import com.easyarch.utils.TimeUtils;
 import io.netty.channel.Channel;
@@ -16,6 +18,7 @@ public class ChatServiceImp implements ChatService {
 
     public Object getObj(Object msg){
         SendMessage sm = (SendMessage)msg;
+        System.out.println(sm.getFromId());
         short type = sm.getType();
         if(type == MsgType.ALL){
             return sendMessageToAll(sm);
@@ -35,7 +38,7 @@ public class ChatServiceImp implements ChatService {
         Channel channel = NettyServerInitializer.group.find(id);
         if(channel.isActive()){
             //如果在线，发送即时消息
-            channel.writeAndFlush(sm);
+            channel.writeAndFlush(new Message(CODE.MESSAGE,sm));
         }else{
             System.out.println(TimeUtils.getAllTime()+"---来自--"+sm.getFromId()+"--的离线消息:"+sm.getMsg());
             //发送离线留言
@@ -48,7 +51,7 @@ public class ChatServiceImp implements ChatService {
         String groupId = sm.getToGroupId();
         ChannelGroup cg = GroupServiceImp.groupMap.get(groupId);
         if(cg!=null){
-            cg.writeAndFlush(sm);
+            cg.writeAndFlush(new Message(CODE.MESSAGE,sm));
             return true;
         }
         System.out.println("发送失败");
@@ -57,7 +60,7 @@ public class ChatServiceImp implements ChatService {
 
     @Override
     public boolean sendMessageToAll(SendMessage sm) {
-        NettyServerInitializer.group.writeAndFlush(sm);
+        NettyServerInitializer.group.writeAndFlush(new Message(CODE.MESSAGE,sm));
         return true;
     }
 }
