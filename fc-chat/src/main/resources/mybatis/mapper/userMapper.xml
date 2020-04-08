@@ -30,6 +30,6 @@
 
     <select id="searchUserByUserInfo" parameterType="com.easyarch.entity.UserInfo"
             resultType="com.easyarch.entity.UserInfo">
-        select * from user_info where userId=#{userId} and userName = #{userPwd}
+        select userId,userName from user_info where userId=#{userId} and userPwd = #{userPwd}
     </select>
 </mapper>

@@ -10,4 +10,11 @@ public class UserInfo implements Serializable {
     private String userId;
     private String userPwd;
     private String userName;
+
+    @Override
+    public String toString(){
+        return "{\"userId\":" +userId+
+                ",\"userName\":" +userName+
+                "}";
+    }
 }

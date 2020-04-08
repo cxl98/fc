@@ -9,12 +9,6 @@ import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -43,35 +37,31 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
             }
         });
+        pipeline.addLast("decoder",new NettyDecoder(Message.class,new ProtoStuffSerializer()));
+        pipeline.addLast("encoder",new NettyEncoder(Message.class,new ProtoStuffSerializer()));
 
-        pipeline.addLast("decoder",new StringDecoder());
-        pipeline.addLast("encoder",new StringEncoder());
-//        pipeline.addLast("decoder",new NettyDecoder(UserInfo.class,new ProtoStuffSerializer()));
-//        pipeline.addLast("decoder",new NettyDecoder(Message.class,new ProtoStuffSerializer()));
-
-
-        pipeline.addLast("framer",new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()) );
+//        pipeline.addLast("framer",new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()) );
         //处理信息
         pipeline.addLast(new MessageHandler());
         pipeline.addLast(new LoginHandler(ch.id()));
     }
 
-    static {
-        NettyServer.pool.submit(new Runnable() {
-            @SneakyThrows
-            @Override
-            public void run() {
-                while (true){
-                    Thread.sleep(60000);
-                    for(String id : userMap.keySet()){
-                        if(!group.find(userMap.get(id)).isActive()){
-                            userMap.remove(id);
-                        }
-                    }
-                }
-
-            }
-        });
-    }
+//    static {
+//        NettyServer.pool.submit(new Runnable() {
+//            @SneakyThrows
+//            @Override
+//            public void run() {
+//                while (true){
+//                    Thread.sleep(60000);
+//                    for(String id : userMap.keySet()){
+//                        if(!group.find(userMap.get(id)).isActive()){
+//                            userMap.remove(id);
+//                        }
+//                    }
+//                }
+//
+//            }
+//        });
+//    }
 
 }
