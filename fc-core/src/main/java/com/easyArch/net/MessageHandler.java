@@ -1,17 +1,13 @@
-package com.easyArch.net.handler;
+package com.easyArch.net;
 
-import com.easyArch.entity.Message;
+import com.easyArch.fight.MonsterImp;
+import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-/**
- * 消息处理，
- *
- * 根据消息的级别 判定是系统还是玩家。。。
- */
 public class MessageHandler extends SimpleChannelInboundHandler<Message> {
 
-
+    private MonsterImp monster = new MonsterImp();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {

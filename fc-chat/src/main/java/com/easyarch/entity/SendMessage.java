@@ -17,10 +17,10 @@ public class SendMessage implements Serializable {
 
     @Override
     public String toString(){
-        return "\"fromId\":" + fromId +
+        return "{\"fromId\":" + fromId +
                 ",\"type\":" + type +
                 ",\"toGroupId\":" + toGroupId +
                 ",\"toId\":" + toId +
-                ",\"msg\":" + msg;
+                ",\"msg\":" + msg+"}";
     }
 }
