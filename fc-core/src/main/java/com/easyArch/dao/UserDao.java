@@ -1,20 +1,20 @@
 package com.easyArch.dao;
 
-import com.easyArch.entity.GameData;
-import com.easyArch.entity.GameUser;
+import com.easyArch.entity.PlayerInfo;
+import com.easyArch.entity.UserInfo;
 
 
 public interface UserDao {
 
-    int insertNewUser(GameUser userInfo);
+    int insertNewUser(UserInfo userInfo);
 
-    void updateUserData(GameData userData);
+    void updateUserData(PlayerInfo userData);
 
     int searchUserCount();
 
-    GameData searchUserById(String userId);
+    PlayerInfo searchUserById(String userId);
 
-    GameData searchUserByName(String name);
+    PlayerInfo searchUserByName(String name);
 
 
 

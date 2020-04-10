@@ -12,22 +12,19 @@ public class ClientTest {
          NettyClient client = new NettyClient();
 
          Message message = new Message();
-         message.setMsgCode(CODE.MESSAGE);
-         SendMessage msg = new SendMessage();
-         msg.setFromId("184500237");
-         msg.setType(MsgType.ALL);
-         msg.setMsg("Hello!");
-         message.setObj(msg);
-//         client.sendMessage(message);
+//         message.setMsgCode(CODE.MESSAGE);
+//         SendMessage msg = new SendMessage();
+//         msg.setFromId("184500237");
+//         msg.setType(MsgType.ALL);
+//         msg.setMsg("Hello!");
+//         message.setObj(msg);
 
-
-
-//            UserInfo us = new UserInfo();
-//            us.setUserId("333333");
-//            us.setUserPwd("123456");
-//            us.setUserName("test3");
-//            message.setMsgCode(CODE.MESSAGE);
-//            message.setObj(us);
+            UserInfo us = new UserInfo();
+            us.setUserId("444444");
+            us.setUserPwd("123456");
+            us.setUserName("test4");
+            message.setMsgCode(CODE.REGIST);
+            message.setObj(us);
 
          client.sendMessage(message);
 

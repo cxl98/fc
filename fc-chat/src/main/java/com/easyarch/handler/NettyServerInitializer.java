@@ -12,12 +12,16 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
+    private static Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
+
     //所有人组
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -34,7 +38,6 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
                 group.remove(future.channel());
-
             }
         });
         pipeline.addLast("decoder",new NettyDecoder(Message.class,new ProtoStuffSerializer()));
@@ -43,7 +46,6 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 //        pipeline.addLast("framer",new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()) );
         //处理信息
         pipeline.addLast(new MessageHandler());
-        pipeline.addLast(new LoginHandler(ch.id()));
     }
 
 //    static {

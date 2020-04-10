@@ -15,6 +15,7 @@ public class Client {
 
     @Before
     public void connect(){
+
         client = new NettyClient();
     }
 
