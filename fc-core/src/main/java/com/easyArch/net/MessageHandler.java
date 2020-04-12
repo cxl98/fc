@@ -44,10 +44,11 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
         Object obj = msg.getObj();
         //打机器人
         if (code == CODE.FIGHT){
+            Object mos = monster.getObj(obj);
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    msg.setObj(obj);
+                    msg.setObj(mos);
                     ctx.writeAndFlush(msg);
                 }
             });
@@ -62,17 +63,21 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
                 @Override
                 public void run() {
                     String enemy = match.match(rank,self);
-                    //如果需要线程等待，如何处理?
+
                     if(null==enemy||self.equals(enemy)){
-                        msg.setMsgCode(CODE.MATCH_FAIL);
+                        //告诉客户端等待
+                        msg.setMsgCode(CODE.MATCH_WAIT);
                         ctx.writeAndFlush(msg);
                     }else{
+                        //匹配到了
                         msg.setObj(enemy);
                         msg.setMsgCode(CODE.ENEMY);
 
                         //将你自己的id告诉对手
                         group.find(userMap.get(enemy)).writeAndFlush(self);
-                        //这里要释放那个正在等待的那个人...
+                        //把这两个玩家移出匹配队列
+                        match.cancel(rank,self);
+                        match.cancel(enemy);
 
                         //告诉自己你的对手id是啥(换成name)
                         ctx.writeAndFlush(msg);
@@ -86,7 +91,19 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
             String enemy = ((Operation)obj).getEnemyId();
             ChannelId enemyId = userMap.get(enemy);
             //将你的操作直接发给敌人的客户端去处理
-            group.find(enemyId).writeAndFlush(obj);
+            pool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    group.find(enemyId).writeAndFlush(obj);
+                }
+            });
+        }
+
+        //如果客户端返回了匹配失败的代码
+        if(code == CODE.MATCH_FAIL){
+            String self = (String)obj;
+            int rank = playerInfoMap.get(self).getRank();
+            match.cancel(rank,self);
         }
     }
 

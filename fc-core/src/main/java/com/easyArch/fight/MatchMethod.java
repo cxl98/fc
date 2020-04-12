@@ -5,9 +5,11 @@ import io.netty.channel.ChannelId;
 public interface MatchMethod  {
 
     /**
-     * 取消
+     * 取消匹配
      */
-    void cancel();
+    void cancel(int rank,String userId);
+
+    void cancel(String userId);
 
 
     /**
@@ -25,6 +27,8 @@ public interface MatchMethod  {
      * @return 返回你匹配到的对手id
      */
     String match(int rank,String userId);
+
+
 
 
 
