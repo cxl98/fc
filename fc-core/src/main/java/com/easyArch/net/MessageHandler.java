@@ -3,11 +3,15 @@ package com.easyArch.net;
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.fight.Imp.MatchMethodImp;
 import com.easyArch.fight.MonsterImp;
+import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +35,8 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
     public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
 
     public static ExecutorService pool = Executors.newFixedThreadPool(20);
+
+    public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -63,14 +69,30 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
                     }else{
                         msg.setObj(enemy);
                         msg.setMsgCode(CODE.ENEMY);
-                        //告知你的敌人id(换成name)
+
+                        //将你自己的id告诉对手
+                        group.find(userMap.get(enemy)).writeAndFlush(self);
+                        //这里要释放那个正在等待的那个人...
+
+                        //告诉自己你的对手id是啥(换成name)
                         ctx.writeAndFlush(msg);
                     }
                 }
             });
         }
+
+
+        if(code ==  CODE.MATCH_FIGHT){
+            String enemy = ((Operation)obj).getEnemyId();
+            ChannelId enemyId = userMap.get(enemy);
+            //将你的操作直接发给敌人的客户端去处理
+            group.find(enemyId).writeAndFlush(obj);
+        }
     }
 
-
-
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        group.add(ctx.channel());
+        super.channelRegistered(ctx);
+    }
 }

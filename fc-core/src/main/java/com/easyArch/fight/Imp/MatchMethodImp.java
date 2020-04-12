@@ -10,6 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Service
 public class MatchMethodImp implements MatchMethod {
 
+    //范围数组
     private static Map<Integer, LinkedBlockingQueue<String>> map = new ConcurrentHashMap<>();
 
     @Override
@@ -33,11 +34,12 @@ public class MatchMethodImp implements MatchMethod {
         isInQueue = add(rank,userId);
         if(isInQueue){
             if(map.get(rank).size()<=1){
-                //wait
+//                Thread.sleep();
+//                wait();
             }else{
                 try {
                     String enemyId = map.get(rank).take();
-
+                    //要让那个在等待的玩家停止等待
                     return enemyId;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
