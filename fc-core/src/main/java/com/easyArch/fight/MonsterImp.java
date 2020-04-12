@@ -6,7 +6,9 @@ import com.easyArch.fight.model.Action;
 import com.easyArch.fight.model.BUFF;
 import com.easyArch.fight.model.Operation;
 import com.easyArch.utils.Robot;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MonsterImp {
     private Robot robot = null;
     private int level ;

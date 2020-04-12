@@ -18,4 +18,9 @@ public class CODE {
     public static final int RETURN = 999;
 
 
+    public static final int MATCH = 505;
+    public static final int ENEMY = 506;
+    public static final int MATCH_FAIL = 507;//匹配失败的代码
+
+
 }
