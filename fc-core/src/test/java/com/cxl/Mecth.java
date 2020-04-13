@@ -27,7 +27,7 @@ public class Mecth {
      * @param playerId 玩家id
      * @param grade 等级
      */
-    public static void addPlayer(int playerId, int grade) {
+    public  void addPlayer(int playerId, int grade) {
         Player player = new Player(playerId, grade);
         concurrentMapPlayer.put(playerId, player);
     }
@@ -38,7 +38,7 @@ public class Mecth {
 
         TreeMap<Integer, HashSet<Player>> map = new TreeMap<>();
         for (Player item : concurrentMapPlayer.values()) {
-            //匹配超时时间为５分钟
+            //匹配超时时间为2分钟
             if (2 * 60 * 1000 < (System.currentTimeMillis() - item.getStartMatchTime())) {
                 System.out.println(item.getPlayerId() + " 匹配超时");
                 removePlayerById(item.getPlayerId());
@@ -84,8 +84,8 @@ public class Mecth {
                 u = Math.round(u);
                 u = Math.min(u, section);
 
-                int min = (player.getGrade() - u) < 0 ? 0 : player.getGrade();
-                int max = player.getGrade() + u > 60 ? 60 : player.getGrade();
+                int min = (player.getGrade() - u) < 0 ? 0 : (int) (player.getGrade() - u);
+                int max = player.getGrade() + u > 60 ? 60 : (int) (player.getGrade() + u);
 
                 System.out.println(player.getPlayerId() + "  本次搜索的等级范围是：[" + min + " ~~ " + max + "]");
 
