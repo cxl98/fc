@@ -1,29 +1,28 @@
 package com.easyArch.net;
 
+import com.easyArch.utils.serialize.ProtoStuffSerializer;
+import com.easyArch.utils.serialize.Serializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
+@ComponentScan(basePackages = "com.easyArch.net.*")
 public class NettyServer implements Runnable{
     private int port;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
     private Thread nserver;
-    public static ThreadPoolExecutor connectThreadPool = new ThreadPoolExecutor(16, 16, 600L,
-            TimeUnit.SECONDS, new ArrayBlockingQueue<>(65536));
-    public static ThreadPoolExecutor msgThreadPool = new ThreadPoolExecutor(16, 16, 600L,
-            TimeUnit.SECONDS, new ArrayBlockingQueue<>(65536));
-    public static ThreadPoolExecutor fightThreadPool = new ThreadPoolExecutor(16, 16, 600L,
-            TimeUnit.SECONDS, new ArrayBlockingQueue<>(65536));
 
-    private NettyServerInitializer nsi = new NettyServerInitializer();
+    static Serializer serializer = new ProtoStuffSerializer();
+
+
+    @Autowired
+    private NettyServerInitializer nsi ;
 
     private void init(){
         nserver = new Thread(this);

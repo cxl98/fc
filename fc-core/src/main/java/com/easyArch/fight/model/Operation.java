@@ -10,6 +10,7 @@ public class Operation {
     private int level;
     private int action;
     private Attribute attribute;
+    private String enemyId;
     private Robot robot;
 
 }

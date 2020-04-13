@@ -14,6 +14,7 @@ import com.easyarch.service.imp.UserServiceImp;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 管理消息分发
@@ -21,13 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageHandler extends SimpleChannelInboundHandler<Message> {
 
-    private ChatServiceImp chatServiceImp = new ChatServiceImp();
-
-    private FriendServiceImp friendServiceImp = new FriendServiceImp();
-
-    private UserServiceImp userServiceImp = new UserServiceImp();
-
-    private GroupServiceImp groupServiceImp = new GroupServiceImp();
+    @Autowired
+    private ChatServiceImp chatServiceImp;
+    @Autowired
+    private FriendServiceImp friendServiceImp;
+    @Autowired
+    private UserServiceImp userServiceImp ;
+    @Autowired
+    private GroupServiceImp groupServiceImp;
 
 
     @Override
