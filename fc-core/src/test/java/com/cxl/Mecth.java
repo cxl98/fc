@@ -8,6 +8,9 @@ public class Mecth {
      * 线程池
      */
     private static ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+    private static ExecutorService service1=Executors.newSingleThreadScheduledExecutor();
+
+
     /**
      * 需要匹配的玩家数
      */
@@ -20,6 +23,7 @@ public class Mecth {
 
     static {
         service.scheduleWithFixedDelay(() -> process(concurrentMapPlayer), 1, 1, TimeUnit.SECONDS);
+
     }
 
     /**
@@ -111,6 +115,8 @@ public class Mecth {
                                         matchPlayer.add(player1);
                                         System.out.println(player.getPlayerId() + " 匹配到玩家" + player1.getPlayerId());
                                         iterator.remove();
+                                        concurrentMapPlayer.remove(player.getPlayerId(),player);
+                                        concurrentMapPlayer.remove(player1.getPlayerId(),player1);
                                     } else {
                                         break;
                                     }

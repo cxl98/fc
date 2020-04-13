@@ -15,23 +15,14 @@ public class Player {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
 
     public int getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
 
     public long getStartMatchTime() {
         return startMatchTime;
     }
 
-    public void setStartMatchTime(long startMatchTime) {
-        this.startMatchTime = startMatchTime;
-    }
 }

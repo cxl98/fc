@@ -12,6 +12,6 @@ public class Test {
         mecth.addPlayer(1,15);
         mecth.addPlayer(2,35);
         mecth.addPlayer(3,26);
-        mecth.addPlayer(4,31);
+//        mecth.addPlayer(4,31);
     }
 }
