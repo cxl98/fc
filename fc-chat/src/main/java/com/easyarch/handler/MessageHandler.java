@@ -54,7 +54,13 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
                 NettyServer.pool.execute(new Runnable() {
                     @Override
                     public void run() {
+                        Object xx = userServiceImp.getObj(obj);
+                        if(null!=xx){
+                            UserInfo us =(UserInfo)xx;
+                            NettyServerInitializer.userMap.put(us.getUserId(),ctx.channel().id());
+                        }
                         msg.setObj(userServiceImp.getObj(obj));
+
                         ctx.writeAndFlush(msg);
                     }
                 });

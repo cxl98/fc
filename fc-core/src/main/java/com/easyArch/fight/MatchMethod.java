@@ -12,13 +12,13 @@ public interface MatchMethod  {
     void cancel(String userId);
 
 
-    /**
-     *
-     * @param rank 根据rank分 进入队列
-     * @param userId 自己的id
-     * @return 是否加入成功
-     */
-    boolean add(int rank,String userId);
+//    /**
+//     *
+//     * @param rank 根据rank分 进入队列
+//     * @param userId 自己的id
+//     * @return 是否加入成功
+//     */
+//    boolean add(int rank,String userId);
 
     /**
      *

@@ -4,11 +4,9 @@ import com.easyArch.utils.serialize.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class NettyDecoder extends ByteToMessageDecoder {
     private Class<?> genericClass;
     private Serializer serializer;

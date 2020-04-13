@@ -6,7 +6,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.springframework.stereotype.Component;
 
-@Component
 public class NettyEncoder extends MessageToByteEncoder<Object> {
     private Class<?> genericClass;
     private Serializer serializer;
