@@ -13,7 +13,7 @@ public class FriendSystem {
 
 
     //这个通过遍历好友列表，去服务器在线用户的hash找
-    private List<GameData> onlineId;
+    private List<PlayerInfo> onlineId;
 
 
 }

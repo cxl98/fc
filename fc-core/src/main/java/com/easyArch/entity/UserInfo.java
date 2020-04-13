@@ -3,7 +3,7 @@ package com.easyArch.entity;
 import lombok.Data;
 
 @Data
-public class GameUser {
+public class UserInfo {
     private String userId;
     private String userPwd;
 }
