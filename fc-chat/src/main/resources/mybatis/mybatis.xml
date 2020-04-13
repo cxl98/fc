@@ -1,73 +1,73 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration [
-        <!ELEMENT configuration (properties|environments|mappers)*>
-        <!ELEMENT properties (property)*>
-        <!ELEMENT property (#PCDATA)>
-        <!ATTLIST property
-                name CDATA #REQUIRED
-                value CDATA #REQUIRED>
-        <!ELEMENT environments (environment)*>
-        <!ATTLIST environments
-                default CDATA #REQUIRED>
-        <!ELEMENT environment (transactionManager|dataSource)*>
-        <!ATTLIST environment
-                id CDATA #REQUIRED>
-        <!ELEMENT transactionManager (#PCDATA)>
-        <!ATTLIST transactionManager
-                type CDATA #REQUIRED>
-        <!ELEMENT dataSource (property)*>
-        <!ATTLIST dataSource
-                type CDATA #REQUIRED>
-        <!ELEMENT mappers (mapper)*>
-        <!ELEMENT mapper (#PCDATA)>
-        <!ATTLIST mapper
-                resource CDATA #REQUIRED>
-        ]>
-<configuration>
-    <properties>
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://47.93.225.242:3306/mybatis-110"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
-    </properties>
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE configuration [-->
+        <!--<!ELEMENT configuration (properties|environments|mappers)*>-->
+        <!--<!ELEMENT properties (property)*>-->
+        <!--<!ELEMENT property (#PCDATA)>-->
+        <!--<!ATTLIST property-->
+                <!--name CDATA #REQUIRED-->
+                <!--value CDATA #REQUIRED>-->
+        <!--<!ELEMENT environments (environment)*>-->
+        <!--<!ATTLIST environments-->
+                <!--default CDATA #REQUIRED>-->
+        <!--<!ELEMENT environment (transactionManager|dataSource)*>-->
+        <!--<!ATTLIST environment-->
+                <!--id CDATA #REQUIRED>-->
+        <!--<!ELEMENT transactionManager (#PCDATA)>-->
+        <!--<!ATTLIST transactionManager-->
+                <!--type CDATA #REQUIRED>-->
+        <!--<!ELEMENT dataSource (property)*>-->
+        <!--<!ATTLIST dataSource-->
+                <!--type CDATA #REQUIRED>-->
+        <!--<!ELEMENT mappers (mapper)*>-->
+        <!--<!ELEMENT mapper (#PCDATA)>-->
+        <!--<!ATTLIST mapper-->
+                <!--resource CDATA #REQUIRED>-->
+        <!--]>-->
+<!--<configuration>-->
+    <!--<properties>-->
+        <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://47.93.225.242:3306/mybatis-110"/>-->
+        <!--<property name="username" value=""/>-->
+        <!--<property name="password" value=""/>-->
+    <!--</properties>-->
 
-    <!-- 环境，可以配置多个，default：指定采用哪个环境 -->
-    <environments default="test">
-        <!-- id：唯一标识 -->
-        <environment id="test">
-            <!-- 事务管理器，JDBC类型的事务管理器 -->
-            <transactionManager type="JDBC"/>
-            <!-- 数据源，池类型的数据源 -->
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost/chat_room?useUnicode=true&amp;characterEncoding=UTF-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="19990315"/>
-            </dataSource>
+    <!--&lt;!&ndash; 环境，可以配置多个，default：指定采用哪个环境 &ndash;&gt;-->
+    <!--<environments default="test">-->
+        <!--&lt;!&ndash; id：唯一标识 &ndash;&gt;-->
+        <!--<environment id="test">-->
+            <!--&lt;!&ndash; 事务管理器，JDBC类型的事务管理器 &ndash;&gt;-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--&lt;!&ndash; 数据源，池类型的数据源 &ndash;&gt;-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+                <!--<property name="url" value="jdbc:mysql://localhost/chat_room?useUnicode=true&amp;characterEncoding=UTF-8"/>-->
+                <!--<property name="username" value="root"/>-->
+                <!--<property name="password" value="19990315"/>-->
+            <!--</dataSource>-->
 
-<!--            <dataSource type="POOLED">-->
-<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
-<!--                <property name="url" value="jdbc:mysql://47.93.225.242:3306/SccGame?useUnicode=true&amp;characterEncoding=UTF-8"/>-->
-<!--                <property name="username" value="root"/>-->
-<!--                <property name="password" value="19990315"/>-->
-<!--            </dataSource>-->
-        </environment>
-        <environment id="development">
-            <!-- 事务管理器，JDBC类型的事务管理器 -->
-            <transactionManager type="JDBC"/>
-            <!-- 数据源，池类型的数据源 -->
-            <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/> <!-- 配置了properties，所以可以直接引用 -->
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
-            </dataSource>
-        </environment>
-    </environments>
-    <mappers>
-        <mapper resource="mybatis/mapper/userMapper.xml"/>
-    </mappers>
-</configuration>
+<!--&lt;!&ndash;            <dataSource type="POOLED">&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="url" value="jdbc:mysql://47.93.225.242:3306/SccGame?useUnicode=true&amp;characterEncoding=UTF-8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="username" value="root"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="password" value="19990315"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            </dataSource>&ndash;&gt;-->
+        <!--</environment>-->
+        <!--<environment id="development">-->
+            <!--&lt;!&ndash; 事务管理器，JDBC类型的事务管理器 &ndash;&gt;-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--&lt;!&ndash; 数据源，池类型的数据源 &ndash;&gt;-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="${driver}"/> &lt;!&ndash; 配置了properties，所以可以直接引用 &ndash;&gt;-->
+                <!--<property name="url" value="${url}"/>-->
+                <!--<property name="username" value="${username}"/>-->
+                <!--<property name="password" value="${password}"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+    <!--</environments>-->
+    <!--<mappers>-->
+        <!--<mapper resource="mybatis/mapper/userMapper.xml"/>-->
+    <!--</mappers>-->
+<!--</configuration>-->
 
 
 

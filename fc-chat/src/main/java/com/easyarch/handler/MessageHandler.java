@@ -4,6 +4,9 @@ import com.easyarch.NettyServer;
 import com.easyarch.entity.UserInfo;
 import com.easyarch.handler.model.CODE;
 import com.easyarch.handler.model.Message;
+//import com.easyarch.service.imp.ChatServiceImp;
+//import com.easyarch.service.imp.FriendServiceImp;
+//import com.easyarch.service.imp.GroupServiceImp;
 import com.easyarch.service.imp.ChatServiceImp;
 import com.easyarch.service.imp.FriendServiceImp;
 import com.easyarch.service.imp.GroupServiceImp;
@@ -85,31 +88,28 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
                 });
             }
         }
+        ctx.writeAndFlush(msg).sync();
     }
 
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Message----------register----------");
-        super.channelRegistered(ctx);
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Message----------unregister----------");
-        super.channelUnregistered(ctx);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Message----------active----------");
         ctx.channel().read();
-        super.channelActive(ctx);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Message----------inactive----------");
-        super.channelInactive(ctx);
     }
 }

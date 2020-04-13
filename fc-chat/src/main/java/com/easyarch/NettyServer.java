@@ -41,7 +41,6 @@ public class NettyServer implements Runnable{
             workGroup.shutdownGracefully();
         }
 
-//        System.out.println("close");
     }
 
 

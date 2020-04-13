@@ -26,7 +26,7 @@ public class Client {
         us.setUserPwd("123456");
         us.setUserName("test1");
         Message message = new Message(CODE.REGIST,us);
-        client.sendMessage(message);
+//        client.sendMessage(message);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class Client {
         us.setUserPwd("123456");
         us.setUserName("test2");
         Message message = new Message(CODE.LOGIN,us);
-        client.sendMessage(message);
+//        client.sendMessage(message);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class Client {
         m.setType(MsgType.ALL);
         m.setMsg("+++");
         Message message = new Message(CODE.REGIST,m);
-        client.sendMessage(message);
+//        client.sendMessage(message);
     }
 
 
