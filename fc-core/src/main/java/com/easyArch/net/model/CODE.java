@@ -18,4 +18,12 @@ public class CODE {
     public static final int RETURN = 999;
 
 
+    public static final int MATCH = 505;
+    public static final int ENEMY = 506;
+    public static final int MATCH_FIGHT= 507;
+    public static final int MATCH_WAIT = 508;//匹配等待
+    public static final int MATCH_FAIL = 509;//匹配失败的代码
+
+
+
 }
