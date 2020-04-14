@@ -1,24 +1,22 @@
 package com.easyarch.handler;
 
-import com.easyarch.NettyServer;
-import com.easyarch.entity.UserInfo;
 import com.easyarch.handler.model.Message;
 import com.easyarch.utils.ProtoStuffSerializer;
 import com.easyarch.utils.Serializer;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelId;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Slf4j
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private static Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
 
@@ -34,12 +32,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         group.add(ch);
-        ch.closeFuture().addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                group.remove(future.channel());
-            }
-        });
+        ch.closeFuture().addListener((ChannelFutureListener) future -> group.remove(future.channel()));
         pipeline.addLast("decoder",new NettyDecoder(Message.class,new ProtoStuffSerializer()));
         pipeline.addLast("encoder",new NettyEncoder(Message.class,new ProtoStuffSerializer()));
 

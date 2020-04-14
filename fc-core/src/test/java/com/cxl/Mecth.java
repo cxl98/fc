@@ -8,7 +8,6 @@ public class Mecth {
      * 线程池
      */
     private static ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-    private static ExecutorService service1=Executors.newSingleThreadScheduledExecutor();
 
 
     /**

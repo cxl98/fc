@@ -1,6 +1,5 @@
 package com.easyarch;
 
-import com.easyarch.handler.model.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

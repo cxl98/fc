@@ -1,35 +1,35 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
-<!--<mapper namespace="com.easyarch.dao.UserDao">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easyarch.dao.UserDao">
 
-<!--&lt;!&ndash;    int searchById(String id);&ndash;&gt;-->
+<!--    int searchById(String id);-->
 
-<!--&lt;!&ndash;    int searchByName(String name);&ndash;&gt;-->
+<!--    int searchByName(String name);-->
 
-<!--&lt;!&ndash;    UserInfo searchUserById(String id);&ndash;&gt;-->
+<!--    UserInfo searchUserById(String id);-->
 
-<!--&lt;!&ndash;    int insertUser(UserInfo user);&ndash;&gt;-->
+<!--    int insertUser(UserInfo user);-->
 
-<!--&lt;!&ndash;    UserInfo searchUserByUserInfo(UserInfo user);&ndash;&gt;-->
-    <!---->
-    <!--<select id="searchById" resultType="Integer">-->
-        <!--select count(userId) from user_info where userId = #{userId}-->
-    <!--</select>-->
+<!--    UserInfo searchUserByUserInfo(UserInfo user);-->
 
-    <!--<select id="searchByName" resultType="Integer">-->
-        <!--select count(userName) from user_info where userName = #{userName}-->
-    <!--</select>-->
+    <select id="searchById" resultType="Integer">
+        select count(userId) from user_info where userId = #{userId}
+    </select>
 
-    <!--<select id="searchUserById" resultType="com.easyarch.entity.UserInfo">-->
-        <!--select * from user_info where userId = #{id}-->
-    <!--</select>-->
+    <select id="searchByName" resultType="Integer">
+        select count(userName) from user_info where userName = #{userName}
+    </select>
 
-    <!--<insert id="insertUser" parameterType="com.easyarch.entity.UserInfo">-->
-        <!--insert into user_info(userId, userPwd, userName) values (#{userId},#{userPwd},#{userName})-->
-    <!--</insert>-->
+    <select id="searchUserById" resultType="com.easyarch.entity.UserInfo">
+        select * from user_info where userId = #{id}
+    </select>
 
-    <!--<select id="searchUserByUserInfo" parameterType="com.easyarch.entity.UserInfo"-->
-            <!--resultType="com.easyarch.entity.UserInfo">-->
-        <!--select userId,userName from user_info where userId=#{userId} and userPwd = #{userPwd}-->
-    <!--</select>-->
-<!--</mapper>-->
+    <insert id="insertUser" parameterType="com.easyarch.entity.UserInfo">
+        insert into user_info(userId, userPwd, userName) values (#{userId},#{userPwd},#{userName})
+    </insert>
+
+    <select id="searchUserByUserInfo" parameterType="com.easyarch.entity.UserInfo"
+            resultType="com.easyarch.entity.UserInfo">
+        select userId,userName from user_info where userId=#{userId} and userPwd = #{userPwd}
+    </select>
+</mapper>

@@ -1,7 +1,5 @@
 package com.easyarch;
 
-import com.easyarch.entity.SendMessage;
-import com.easyarch.entity.Type.MsgType;
 import com.easyarch.entity.UserInfo;
 import com.easyarch.handler.model.CODE;
 import com.easyarch.handler.model.Message;

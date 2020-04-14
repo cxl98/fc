@@ -50,14 +50,11 @@ public class NettyClient{
     }
 
     public void sendMessage(Message message){
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    future.channel().writeAndFlush(message).sync();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        executor.execute(() -> {
+            try {
+                future.channel().writeAndFlush(message).sync();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
     }
