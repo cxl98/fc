@@ -1,4 +1,4 @@
-package com.easyArch.fight;
+package com.easyArch.fight.Imp;
 
 
 import com.easyArch.entity.Attribute;
@@ -8,6 +8,7 @@ import com.easyArch.fight.model.Operation;
 import com.easyArch.utils.Robot;
 import org.springframework.stereotype.Service;
 
+@Service
 public class MonsterImp {
     private Robot robot = null;
     private int level ;

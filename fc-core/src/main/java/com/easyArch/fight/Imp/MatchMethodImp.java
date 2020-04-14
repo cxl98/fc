@@ -7,12 +7,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+@Service
 public class MatchMethodImp implements MatchMethod {
 
     //范围数组
     private static Map<Integer, LinkedBlockingQueue<String>> map = new ConcurrentHashMap<>();
-//加一个监控队列中对象的信息
-//    private static ExecutorService listen
+    //加一个监控队列中对象的信息
+    //private static ExecutorService listen
 
 
     @Override
@@ -43,9 +44,7 @@ public class MatchMethodImp implements MatchMethod {
 
     @Override
     public String match(int rank,String userId) {
-
         boolean up = true;
-
         for(int i=rank,k = 1;k<=15;k++){
             if(map.containsKey(i)){
                 try{
