@@ -79,10 +79,10 @@ public class Test {
                         Message m = new Message();
                         m.setMsgCode(CODE.MATCH_FAIL);
 
-                        m.setObj("test1");
+//                        m.setObj("test1");
 //                        m.setObj("test2");
 //                        m.setObj("test3");
-//                        m.setObj("test4");
+                        m.setObj("test1");
 //                        m.setObj("test5");
 
                         client.sendMessage(m);
