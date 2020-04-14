@@ -1,16 +1,15 @@
-package com.easyArch;
+package com.easyarch;
 
-import com.easyArch.net.model.Message;
+import com.easyarch.handler.model.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class SimpleClientHandler extends SimpleChannelInboundHandler<Message> {
+
+public class SimpleClientHandler extends SimpleChannelInboundHandler<Object> {
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        Test.returnCode = msg.getMsgCode();
-
-        System.out.println("收到的返回信息:"+msg.getMsgCode()+"收到服务器的数据:"+msg.getObj());
+        System.out.println("收到服务器的数据:"+msg);
 
     }
 }
