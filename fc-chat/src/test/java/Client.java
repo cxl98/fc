@@ -12,7 +12,6 @@ import org.junit.Test;
 public class Client {
     private NettyClient client;
 
-
     @Before
     public void connect(){
 

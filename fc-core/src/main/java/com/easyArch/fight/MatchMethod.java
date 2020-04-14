@@ -1,7 +1,5 @@
 package com.easyArch.fight;
 
-import io.netty.channel.ChannelId;
-
 public interface MatchMethod  {
 
     /**

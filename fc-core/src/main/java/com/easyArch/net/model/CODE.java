@@ -15,6 +15,8 @@ public class CODE {
     public static final int FIGHT = 500;//初始化
     public static final int WIN = 501;
     public static final int FAIL = 502;
+    public static final int UPDATE = 503;
+
     public static final int RETURN = 999;
 
 

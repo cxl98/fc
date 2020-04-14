@@ -23,7 +23,7 @@ public class NettyClient{
     private volatile ChannelFuture future;
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(5,10,200,
             TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
-    NettyClient(){
+    public NettyClient(){
         init();
     }
     private void init() {
