@@ -56,9 +56,24 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
                 });
             }else if(msgType == CODE.LOGIN){
                 System.out.println("LOGIN");
+<<<<<<< HEAD
                 NettyServer.pool.execute(() -> {
                     msg.setObj(userServiceImp.getObj(obj));
                     ctx.writeAndFlush(msg);
+=======
+                NettyServer.pool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Object xx = userServiceImp.getObj(obj);
+                        if(null!=xx){
+                            UserInfo us =(UserInfo)xx;
+                            NettyServerInitializer.userMap.put(us.getUserId(),ctx.channel().id());
+                        }
+                        msg.setObj(userServiceImp.getObj(obj));
+
+                        ctx.writeAndFlush(msg);
+                    }
+>>>>>>> f937d453f3e2973650ffe17e51be850e8ba79f11
                 });
             }
             else if(msgType == CODE.MESSAGE){
