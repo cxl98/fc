@@ -1,13 +1,12 @@
-package com.easyArch;
+package function;
 
-import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Test {
+public class TestMatch {
 
     public static volatile int returnCode;
 

@@ -1,5 +1,6 @@
 package com.easyArch.dao;
 
+import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,8 @@ public interface UserDao {
     int insertUser(UserInfo user);
 
     UserInfo searchUserByUserInfo(UserInfo user);
+
+    int updatePlayer(PlayerInfo player);
 
 
 }

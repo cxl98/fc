@@ -37,4 +37,10 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
         group.add(ctx.channel());
         super.channelRegistered(ctx);
     }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+//        MessageInvoker.userMap.keySet().
+        super.channelUnregistered(ctx);
+    }
 }

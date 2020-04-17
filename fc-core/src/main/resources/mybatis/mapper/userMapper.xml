@@ -32,4 +32,12 @@
             resultType="com.easyArch.entity.UserInfo">
         select userId from UserInfo where userId=#{userId} and userPwd = #{userPwd}
     </select>
+
+    <update id="updatePlayer" parameterType="com.easyArch.entity.PlayerInfo">
+        update PlayerInfo set fightCount = #{fightCount} ,
+                              winCount = #{winCount},
+                              money = #{money},
+                              climbLevel = #{climbLevel},
+                              PlayerInfo.`rank` = #{rank} where userId = #{userId}
+    </update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.easyArch.net;
 
+import com.easyArch.dao.UserDao;
+import com.easyArch.dao.imp.UserDaoImp;
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.fight.Imp.MatchMethodImp;
@@ -29,7 +31,7 @@ public class MessageInvoker {
     @Autowired
     private UserServiceImp userService = new UserServiceImp();
 
-    private static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
+    public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
     //服务器redis缓存一份玩家基本信息
     //public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
@@ -60,6 +62,10 @@ public class MessageInvoker {
         else if(code == CODE.MATCH_FAIL){
             return handleFail(msg);
         }
+        else if(code == CODE.SAVE){
+            return handleSave(msg);
+        }
+
         return null;
     }
 
@@ -68,7 +74,7 @@ public class MessageInvoker {
         if(userService.regist(us)){
             return handleLogin(ctx,msg);
         }
-        msg.setMsgCode(CODE.FAIL);
+        msg.setMsgCode(CODE.ERROR);
         msg.setObj("注册失败,此id已注册");
         return msg;
     }
@@ -84,7 +90,7 @@ public class MessageInvoker {
             msg.setMsgCode(CODE.SUCCESS);
             msg.setObj(player);
         }else{
-            msg.setMsgCode(CODE.FAIL);
+            msg.setMsgCode(CODE.ERROR);
             msg.setObj("登录失败,用户名或密码错误");
         }
 //        PlayerInfo player = (PlayerInfo)msg.getObj();
@@ -171,6 +177,20 @@ public class MessageInvoker {
         PlayerInfo player = (PlayerInfo)msg.getObj();
         RedisUtil.updatePlayer(player);
         msg.setMsgCode(CODE.SUCCESS);
+        return msg;
+    }
+
+    private Message handleSave(Message msg){
+        Object obj = msg.getObj();
+        String userId = (String) obj;
+        PlayerInfo playerInfo = RedisUtil.getPlayer(userId);
+        if(userService.updatePlayer(playerInfo)){
+            msg.setMsgCode(CODE.SUCCESS);
+            msg.setObj("保存成功！");
+            return msg;
+        }
+        msg.setMsgCode(CODE.ERROR);
+        msg.setObj("保存失败");
         return msg;
     }
 

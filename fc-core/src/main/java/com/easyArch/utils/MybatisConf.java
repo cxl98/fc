@@ -26,7 +26,6 @@ public class MybatisConf {
     }
 
     public static SqlSession getSqlSession() {
-
         return sqlSessionFactory.openSession();
     }
 }

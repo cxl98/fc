@@ -2,6 +2,7 @@ package com.easyArch.dao.imp;
 
 
 import com.easyArch.dao.UserDao;
+import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.utils.MybatisConf;
 import org.apache.ibatis.session.SqlSession;
@@ -34,5 +35,12 @@ public class UserDaoImp implements UserDao {
     @Override
     public UserInfo searchUserByUserInfo(UserInfo user) {
         return session.selectOne("searchUserByUserInfo",user);
+    }
+
+    @Override
+    public int updatePlayer(PlayerInfo player) {
+        int x = session.update("updatePlayer",player);
+        session.commit();
+        return x;
     }
 }

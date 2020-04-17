@@ -1,13 +1,13 @@
-package com.easyArch;
+package function;
 
 import com.easyArch.entity.PlayerInfo;
-import com.easyArch.entity.UserInfo;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 
 public class TestLogin {
 
     public static void main(String[] args) {
+
         NettyClient client = new NettyClient();
 
         Message message = new Message();

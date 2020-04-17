@@ -34,7 +34,6 @@ public class RedisUtil {
 
     public static void updatePlayer(PlayerInfo playerInfo){
         String userId = playerInfo.getUserId();
-        commands.hset(userId,USERNAME,playerInfo.getUserName());
         commands.hset(userId,FIGHTCOUNT,""+playerInfo.getFightCount());
         commands.hset(userId,WINCOUNT,""+playerInfo.getWinCount());
         commands.hset(userId,MONEY,""+playerInfo.getMoney());

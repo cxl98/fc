@@ -1,6 +1,5 @@
 package function;
 
-import com.easyArch.NettyClient;
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.net.model.CODE;
