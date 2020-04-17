@@ -23,6 +23,14 @@ public class CODE {
      */
     public static final int FRIEND = 4;
     /*
+    购买物品
+     */
+    public static final int BUY = 5;
+    /*
+    卖出物品
+     */
+    public static final int SELL = 6;
+    /*
     成功返回
      */
     public static final int SUCCESS = 666;
@@ -30,6 +38,10 @@ public class CODE {
     错误返回
      */
     public static final int ERROR = 400;
+    /*
+    请重新发送
+     */
+    public static final int RETRY = 401;
     /*
     打怪
      */

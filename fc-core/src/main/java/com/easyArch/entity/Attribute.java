@@ -10,4 +10,13 @@ public class Attribute implements Serializable {
     private int hp;
     private int def;
     private int attack;
+
+    @Override
+    public String toString(){
+        return "Attribute(userId:" +userId+
+                ",hp:" +hp+
+                ",def:" +def+
+                ",attack:"+attack+
+                ")";
+    }
 }

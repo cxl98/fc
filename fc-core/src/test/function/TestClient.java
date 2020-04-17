@@ -14,7 +14,6 @@ public class TestClient {
     public void regist(){
         Message msg = new Message();
         msg.setMsgCode(CODE.REGIST);
-
         UserInfo us = new UserInfo();
         us.setUserId("111111");
         us.setUserPwd("123456");
@@ -69,7 +68,6 @@ public class TestClient {
         msg.setMsgCode(CODE.MATCH);
         //带上自己的id就行
         msg.setObj("184500237");
-
         client.sendMessage(msg);
     }
 

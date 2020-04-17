@@ -19,16 +19,19 @@ public class MonsterImp {
         Operation op = (Operation)o;
         level = op.getLevel();
         react = op.getAction();
-        if(robot==null){
+        if(Action.START==react&&null==robot){
             setRobot(level);
             op.setRobot(robot);
-        }else{
+        }else if(robot!=null){
             Attribute attr = op.getAttribute();
             int action = op.getAction();
 
-            op.setRobot(robot);
             op.setAttribute(fightRound(attr, action));
+            op.setRobot(robot);
             op.setAction(react);
+        }else{
+            System.out.println("Invalid!");
+            op.setAction(Action.INVALID);
         }
         //返回处理后的操作
         return op;

@@ -53,6 +53,11 @@ public class TestMatch {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();
+                try {
+                    cdl.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while (returnCode!=CODE.ENEMY){
                     if(2*60*1000==(System.currentTimeMillis()-start)){
                         Message m = new Message();
@@ -71,7 +76,7 @@ public class TestMatch {
                 System.out.println("Time out!");
 
             }
-        });
+        }).start();
 
     }
 }

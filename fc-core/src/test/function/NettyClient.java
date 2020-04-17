@@ -15,14 +15,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class NettyClient{
     private volatile ChannelFuture future;
-    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(5,10,200,
-            TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
+//    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(5,10,200,
+//            TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
+    private static ExecutorService executor = Executors.newSingleThreadExecutor();
     public NettyClient(){
         init();
     }
@@ -56,11 +55,17 @@ public class NettyClient{
 
     public void sendMessage(Message message){
 
-        try {
-            future.channel().writeAndFlush(message).sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    future.channel().writeAndFlush(message).sync();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
     }
 

@@ -24,6 +24,7 @@ public class Robot{
         this.level = level;
         hp = 10 * (2^level);
         def = 10 * level;
+        attack = 5 * level;
     }
 
 

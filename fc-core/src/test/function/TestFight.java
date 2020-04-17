@@ -1,47 +1,62 @@
 package function;
 
+import com.easyArch.entity.Attribute;
 import com.easyArch.entity.UserInfo;
+import com.easyArch.fight.model.Action;
+import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
+import com.easyArch.utils.Robot;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TestFight {
+    public static SendMessageImp imp = new SendMessageImp();
+
+    static Operation operation ;
+    //返回的robot属性
+    static Robot robot;
+    //返回的玩家属性
+    static Attribute attr;
+
+    private static ExecutorService executorService  = Executors.newSingleThreadExecutor();
+
     public static void main(String[] args) {
-        final CountDownLatch cdl = new CountDownLatch(1);
 
         NettyClient client = new NettyClient();
 
-        Message message = new Message();
-        message.setMsgCode(CODE.LOGIN);
+//        Message message1 = imp.login("184500237","123456");
+//        client.sendMessage(message1);
 
-        UserInfo p1 = new UserInfo();
-        p1.setUserId("18539403150");
-        p1.setUserPwd("123456");
+        Message message = imp.fightBegin();
+        client.sendMessage(message);
 
-        message.setObj(p1);
+        try {
+            Thread.sleep(2000);
+            message = imp.fight(Action.ATTACK,robot,attr);
+            client.sendMessage(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                client.sendMessage(message);
-                cdl.countDown();
-            }
-        }).start();
+        try {
+            Thread.sleep(2000);
+            message = imp.fight(Action.ATTACK,robot,attr);
+            client.sendMessage(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    cdl.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                message.setMsgCode(CODE.MATCH);
-                message.setObj("18539403150");
-                client.sendMessage(message);
-            }
-        }).start();
+        try {
+            Thread.sleep(2000);
+            message = imp.fight(Action.BUFF,robot,attr);
+            client.sendMessage(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }
