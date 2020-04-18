@@ -2,8 +2,10 @@ package com.easyArch.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class FightRecord {
+public class FightRecord implements Serializable {
     /*
     可以用来返回战斗数据，
     还可以记录在数据库一份战斗记录

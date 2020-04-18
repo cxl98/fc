@@ -2,6 +2,7 @@ package com.easyArch.fight.Imp;
 
 import com.easyArch.dao.UserDao;
 import com.easyArch.dao.imp.UserDaoImp;
+import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.fight.UserService;
 import com.easyArch.utils.RedisUtil;
@@ -35,6 +36,10 @@ public class UserServiceImp implements UserService {
 
     private boolean isUser(String id){
         return dao.searchById(id) != 0;
+    }
+
+    public boolean updatePlayer(PlayerInfo player){
+        return dao.updatePlayer(player) != 0;
     }
 
 }

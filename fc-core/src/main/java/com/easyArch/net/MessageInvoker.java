@@ -5,14 +5,12 @@ import com.easyArch.entity.UserInfo;
 import com.easyArch.fight.Imp.MatchMethodImp;
 import com.easyArch.fight.Imp.UserServiceImp;
 import com.easyArch.fight.Imp.MonsterImp;
-import com.easyArch.fight.UserService;
 import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.RedisUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -22,14 +20,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class MessageInvoker {
 
-    @Autowired
     private MonsterImp monster = new MonsterImp();
-    @Autowired
+
     private MatchMethodImp match = new MatchMethodImp();
-    @Autowired
+
     private UserServiceImp userService = new UserServiceImp();
 
-    private static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
+    public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
     //服务器redis缓存一份玩家基本信息
     //public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
@@ -60,6 +57,10 @@ public class MessageInvoker {
         else if(code == CODE.MATCH_FAIL){
             return handleFail(msg);
         }
+        else if(code == CODE.SAVE){
+            return handleSave(msg);
+        }
+
         return null;
     }
 
@@ -68,7 +69,7 @@ public class MessageInvoker {
         if(userService.regist(us)){
             return handleLogin(ctx,msg);
         }
-        msg.setMsgCode(CODE.FAIL);
+        msg.setMsgCode(CODE.REGIST);
         msg.setObj("注册失败,此id已注册");
         return msg;
     }
@@ -80,11 +81,10 @@ public class MessageInvoker {
             String userId = us.getUserId();
             PlayerInfo player = RedisUtil.getPlayer(userId);
             userMap.put(userId,ctx.channel().id());
-
-            msg.setMsgCode(CODE.SUCCESS);
+//            msg.setMsgCode(CODE.SUCCESS);
             msg.setObj(player);
         }else{
-            msg.setMsgCode(CODE.FAIL);
+            msg.setMsgCode(CODE.LOGIN);
             msg.setObj("登录失败,用户名或密码错误");
         }
 //        PlayerInfo player = (PlayerInfo)msg.getObj();
@@ -158,19 +158,42 @@ public class MessageInvoker {
         String self = (String)obj;
 //        int rank = playerInfoMap.get(self).getRank();
         String sRank = RedisUtil.getConnection().hget(self,RedisUtil.RANK);
+//        if()
         int rank = Integer.valueOf(sRank);
 
-        match.cancel(rank,self);
-        Message m = new Message();
-        m.setMsgCode(CODE.SUCCESS);
-        m.setObj("SUCCESS");
-        return m;
+        try{
+            //如果取消有异常
+            match.cancel(rank,self);
+            msg.setMsgCode(CODE.SUCCESS);
+            msg.setObj("取消匹配!");
+        }catch (Exception e){
+            //告诉客户端重新发送
+            msg.setMsgCode(CODE.RETRY);
+            msg.setObj(e.getMessage());
+            return msg;
+        }
+        return msg;
     }
 
     private Message handleUpdate(Message msg){
         PlayerInfo player = (PlayerInfo)msg.getObj();
+//        Map
         RedisUtil.updatePlayer(player);
         msg.setMsgCode(CODE.SUCCESS);
+        return msg;
+    }
+
+    private Message handleSave(Message msg){
+        Object obj = msg.getObj();
+        String userId = (String) obj;
+        PlayerInfo playerInfo = RedisUtil.getPlayer(userId);
+        if(userService.updatePlayer(playerInfo)){
+            msg.setMsgCode(CODE.SUCCESS);
+            msg.setObj("保存成功！");
+            return msg;
+        }
+        msg.setMsgCode(CODE.ERROR);
+        msg.setObj("保存失败");
         return msg;
     }
 

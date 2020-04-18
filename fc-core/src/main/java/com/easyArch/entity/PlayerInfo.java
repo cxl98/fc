@@ -2,8 +2,10 @@ package com.easyArch.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
     private String userId;
     private String userName;
     private int fightCount;//战斗数

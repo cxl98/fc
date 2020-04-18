@@ -1,13 +1,12 @@
-package com.easyArch;
+package function;
 
-import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Test {
+public class TestMatch {
 
     public static volatile int returnCode;
 
@@ -54,6 +53,11 @@ public class Test {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();
+                try {
+                    cdl.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while (returnCode!=CODE.ENEMY){
                     if(2*60*1000==(System.currentTimeMillis()-start)){
                         Message m = new Message();
@@ -72,7 +76,7 @@ public class Test {
                 System.out.println("Time out!");
 
             }
-        });
+        }).start();
 
     }
 }

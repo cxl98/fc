@@ -13,4 +13,13 @@ public class Operation {
     private String enemyId;
     private Robot robot;
 
+    @Override
+    public String toString(){
+        return "Operation(level:" +level+
+                ",action:" +action+
+                ",attribute:" +attribute+
+                ",enemyId:" +enemyId+
+                ",Robot:" +robot+
+                ")";
+    }
 }
