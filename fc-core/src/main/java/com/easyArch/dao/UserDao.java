@@ -7,16 +7,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
 
-    int insertNewUser(UserInfo userInfo);
 
-    void updateUserData(PlayerInfo userData);
+    int searchById(String id);
 
-    int searchUserCount();
+    int searchByName(String name);
 
-    PlayerInfo searchUserById(String userId);
+    UserInfo searchUserById(String id);
 
-    PlayerInfo searchUserByName(String name);
+    int insertUser(UserInfo user);
 
+    UserInfo searchUserByUserInfo(UserInfo user);
+
+    int updatePlayer(PlayerInfo player);
 
 
 }

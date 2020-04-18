@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easyarch.dao.UserDao">
+
+<!--    int searchById(String id);-->
+
+<!--    int searchByName(String name);-->
+
+<!--    UserInfo searchUserById(String id);-->
+
+<!--    int insertUser(UserInfo user);-->
+
+<!--    UserInfo searchUserByUserInfo(UserInfo user);-->
+    
+    <select id="searchById" resultType="Integer">
+        select count(userId) from UserInfo where userId = #{userId}
+    </select>
+
+<!--    <select id="searchByName" resultType="Integer">-->
+<!--        select count(userName) from UserInfo where userName = #{userName}-->
+<!--    </select>-->
+
+    <select id="searchUserById" resultType="com.easyArch.entity.UserInfo">
+        select * from UserInfo where userId = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="com.easyArch.entity.UserInfo">
+        insert into UserInfo(userId, userPwd) values (#{userId},#{userPwd})
+    </insert>
+
+    <select id="searchUserByUserInfo" parameterType="com.easyArch.entity.UserInfo"
+            resultType="com.easyArch.entity.UserInfo">
+        select userId from UserInfo where userId=#{userId} and userPwd = #{userPwd}
+    </select>
+
+    <update id="updatePlayer" parameterType="com.easyArch.entity.PlayerInfo">
+        update PlayerInfo set fightCount = #{fightCount} ,
+                              winCount = #{winCount},
+                              money = #{money},
+                              climbLevel = #{climbLevel},
+                              PlayerInfo.`rank` = #{rank} where userId = #{userId}
+    </update>
+</mapper>

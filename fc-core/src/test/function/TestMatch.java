@@ -1,12 +1,12 @@
-package com.easyArch;
+package function;
 
-import com.easyArch.entity.PlayerInfo;
+import com.easyArch.entity.UserInfo;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Test {
+public class TestMatch {
 
     public static volatile int returnCode;
 
@@ -18,33 +18,12 @@ public class Test {
         Message message = new Message();
         message.setMsgCode(CODE.LOGIN);
 
-//        message.setMsgCode(CODE.MATCH);
-//
-        PlayerInfo p1 = new PlayerInfo();
-        p1.setUserId("test1");
-        p1.setRank(10);
-
-//        PlayerInfo p2 = new PlayerInfo();
-//        p2.setUserId("test2");
-//        p2.setRank(50);
-//
-//        PlayerInfo p3 = new PlayerInfo();
-//        p3.setUserId("test3");
-//        p3.setRank(43);
-////
-//        PlayerInfo p4 = new PlayerInfo();
-//        p4.setUserId("test4");
-//        p4.setRank(16);
-//
-//        PlayerInfo p5 = new PlayerInfo();
-//        p5.setUserId("test5");
-//        p5.setRank(25);
+        UserInfo p1 = new UserInfo();
+        p1.setUserId("18539403150");
+        p1.setUserPwd("123456");
 
         message.setObj(p1);
-//        message.setObj(p2);
-//        message.setObj(p3);
-//        message.setObj(p4);
-//        message.setObj(p5);
+
 
         new Thread(new Runnable() {
             @Override
@@ -63,7 +42,7 @@ public class Test {
                     e.printStackTrace();
                 }
                 message.setMsgCode(CODE.MATCH);
-                message.setObj("test1");
+                message.setObj("18539403150");
                 client.sendMessage(message);
             }
         }).start();
@@ -74,6 +53,11 @@ public class Test {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();
+                try {
+                    cdl.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while (returnCode!=CODE.ENEMY){
                     if(2*60*1000==(System.currentTimeMillis()-start)){
                         Message m = new Message();
@@ -82,7 +66,7 @@ public class Test {
 //                        m.setObj("test1");
 //                        m.setObj("test2");
 //                        m.setObj("test3");
-                        m.setObj("test1");
+                        m.setObj("18539403150");
 //                        m.setObj("test5");
 
                         client.sendMessage(m);
@@ -92,7 +76,7 @@ public class Test {
                 System.out.println("Time out!");
 
             }
-        });
+        }).start();
 
     }
 }

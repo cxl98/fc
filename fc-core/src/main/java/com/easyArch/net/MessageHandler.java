@@ -1,20 +1,12 @@
 package com.easyArch.net;
 
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.fight.Imp.MatchMethodImp;
-import com.easyArch.fight.MonsterImp;
-import com.easyArch.fight.model.Operation;
-import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -44,5 +36,11 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
         System.out.println("-------Regist-------");
         group.add(ctx.channel());
         super.channelRegistered(ctx);
+    }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+//        MessageInvoker.userMap.keySet().
+        super.channelUnregistered(ctx);
     }
 }
