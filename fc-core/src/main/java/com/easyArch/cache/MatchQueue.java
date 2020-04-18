@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 消息队列缓存
  * 系统推送
  */
-//@Component
+@Component
 public class MatchQueue {
 
     /**

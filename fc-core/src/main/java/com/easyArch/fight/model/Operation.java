@@ -1,4 +1,4 @@
-package com.easyArch.service.model;
+package com.easyArch.fight.model;
 
 import com.easyArch.entity.Attribute;
 import com.easyArch.utils.Robot;

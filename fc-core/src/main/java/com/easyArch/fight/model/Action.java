@@ -1,4 +1,4 @@
-package com.easyArch.service.model;
+package com.easyArch.fight.model;
 
 public class Action {
 

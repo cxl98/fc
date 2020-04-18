@@ -1,11 +1,9 @@
 package com.easyArch.entity;
 
 import lombok.Data;
-import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 
-@Repository
 @Data
 public class PlayerInfo implements Serializable {
     private String userId;

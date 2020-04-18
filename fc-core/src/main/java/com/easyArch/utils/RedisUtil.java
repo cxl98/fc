@@ -5,7 +5,6 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -35,7 +34,6 @@ public class RedisUtil {
 
     public static void updatePlayer(PlayerInfo playerInfo){
         String userId = playerInfo.getUserId();
-        commands.hset(userId,USERNAME,playerInfo.getUserName());
         commands.hset(userId,FIGHTCOUNT,""+playerInfo.getFightCount());
         commands.hset(userId,WINCOUNT,""+playerInfo.getWinCount());
         commands.hset(userId,MONEY,""+playerInfo.getMoney());
@@ -59,12 +57,10 @@ public class RedisUtil {
         commands.hset(userId,WINCOUNT,"0");
         commands.hset(userId,MONEY,"0");
         commands.hset(userId,CLIMBLEVEL,"0");
-        commands.hset(userId,RANK,"10");
+        commands.hset(userId,RANK,"0");
     }
 
     public static PlayerInfo getPlayer(String userId){
-        //这也应该注入
-
         PlayerInfo player  = new PlayerInfo();
 
         String userName = commands.hget(userId,USERNAME);
@@ -82,11 +78,6 @@ public class RedisUtil {
         player.setWinCount(Integer.valueOf(winCount));
         player.setMoney(Integer.valueOf(money));
         return player;
-    }
-
-    public static boolean isContainsKey(String key){
-        long x = commands.exists(key);
-        return x != 0;
     }
 
 

@@ -1,10 +1,10 @@
-package com.easyArch.service;
+package com.easyArch.fight;
 
 import com.easyArch.entity.UserInfo;
 
 public interface UserService {
 
-    String login(UserInfo user);
+    UserInfo login(UserInfo user);
 
     boolean regist(UserInfo user);
 

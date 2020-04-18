@@ -1,17 +1,19 @@
 package function;
 
 import com.easyArch.entity.Attribute;
-import com.easyArch.service.model.Action;
-import com.easyArch.service.model.Operation;
+import com.easyArch.entity.UserInfo;
+import com.easyArch.fight.model.Action;
+import com.easyArch.fight.model.Operation;
+import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Robot;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TestFight {
-
-    private static SendMessageImp imp = new SendMessageImp();
+    public static SendMessageImp imp = new SendMessageImp();
 
     static Operation operation ;
     //返回的robot属性
@@ -25,12 +27,11 @@ public class TestFight {
 
         NettyClient client = new NettyClient();
 
-        Message message1 = imp.login("184500237","123456");
-        client.sendMessage(message1);
+//        Message message1 = imp.login("184500237","123456");
+//        client.sendMessage(message1);
 
         Message message = imp.fightBegin();
         client.sendMessage(message);
-
 
         try {
             Thread.sleep(2000);

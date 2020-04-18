@@ -1,31 +1,22 @@
 package com.easyArch.net;
 
-import com.easyArch.invoker.MessageInvoker;
 import com.easyArch.net.model.Message;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Component
-@ChannelHandler.Sharable
 public class MessageHandler extends SimpleChannelInboundHandler<Message> {
 
-    @Autowired
-    private MessageInvoker invoker ;
+    private static MessageInvoker invoker= new MessageInvoker();
 
     public static ExecutorService pool = Executors.newFixedThreadPool(20);
 
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
@@ -35,9 +26,6 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
         pool.execute(new Runnable() {
             @Override
             public void run() {
-                if(invoker==null){
-                    System.out.println("xxx");
-                }
                 ctx.writeAndFlush(invoker.handle(ctx,msg));
             }
         });
