@@ -5,14 +5,15 @@ import com.easyarch.handler.NettyEncoder;
 import com.easyarch.handler.model.Message;
 import com.easyarch.utils.ProtoStuffSerializer;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.concurrent.*;
 
 public class NettyClient {
     private Bootstrap client;
