@@ -1,8 +1,7 @@
 package function;
 
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.fight.model.Action;
-import com.easyArch.fight.model.Operation;
+import com.easyArch.service.model.Action;
+import com.easyArch.service.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,7 +17,7 @@ public class SimpleClientHandler extends SimpleChannelInboundHandler<Message> {
 //        TestMatch.returnCode = msg.getMsgCode();
         int code = msg.getMsgCode();
         if(code == CODE.LOGIN){
-            TestLogin.player = (PlayerInfo)msg.getObj();
+            TestLogin.player = msg.getObj().toString();
         }else if(code == CODE.FIGHT){
 
             Operation op = (Operation)msg.getObj();

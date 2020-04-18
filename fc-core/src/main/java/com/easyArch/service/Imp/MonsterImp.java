@@ -1,10 +1,10 @@
-package com.easyArch.fight.Imp;
+package com.easyArch.service.Imp;
 
 
 import com.easyArch.entity.Attribute;
-import com.easyArch.fight.model.Action;
-import com.easyArch.fight.model.BUFF;
-import com.easyArch.fight.model.Operation;
+import com.easyArch.service.model.Action;
+import com.easyArch.service.model.BUFF;
+import com.easyArch.service.model.Operation;
 import com.easyArch.utils.Robot;
 import org.springframework.stereotype.Service;
 

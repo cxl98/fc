@@ -1,38 +1,41 @@
-package com.easyArch.net;
+package com.easyArch.invoker;
 
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
-import com.easyArch.fight.Imp.MatchMethodImp;
-import com.easyArch.fight.Imp.UserServiceImp;
-import com.easyArch.fight.Imp.MonsterImp;
-import com.easyArch.fight.model.Operation;
+import com.easyArch.service.Imp.MatchMethodImp;
+import com.easyArch.service.Imp.UserServiceImp;
+import com.easyArch.service.Imp.MonsterImp;
+import com.easyArch.service.model.Operation;
+import com.easyArch.net.MessageHandler;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.RedisUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
-@Component
+@Service
 public class MessageInvoker {
 
-    private MonsterImp monster = new MonsterImp();
+    @Autowired
+    private MonsterImp monster ;
+    @Autowired
+    private MatchMethodImp match ;
+    @Autowired
+    private UserServiceImp userService ;
 
-    private MatchMethodImp match = new MatchMethodImp();
+    private Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
-    private UserServiceImp userService = new UserServiceImp();
-
-    public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
     //服务器redis缓存一份玩家基本信息
     //public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
 
-
-    Message handle(ChannelHandlerContext ctx, Message msg){
+    public Message handle(ChannelHandlerContext ctx, Message msg){
         int code = msg.getMsgCode();
         if(code == CODE.LOGIN){
             return handleLogin(ctx,msg);
@@ -67,6 +70,9 @@ public class MessageInvoker {
     private Message handleRegist(ChannelHandlerContext ctx,Message msg){
         UserInfo us = (UserInfo) msg.getObj();
         if(userService.regist(us)){
+            //初始化玩家信息
+            userService.playerInit(us.getUserId());
+            //先存MySQL---再存redis---登录(先访问redis---再访问数据库)
             return handleLogin(ctx,msg);
         }
         msg.setMsgCode(CODE.REGIST);
@@ -79,7 +85,17 @@ public class MessageInvoker {
         UserInfo us = (UserInfo) msg.getObj();
         if(null!=userService.login(us)){
             String userId = us.getUserId();
-            PlayerInfo player = RedisUtil.getPlayer(userId);
+            PlayerInfo player ;
+                //如果在redis里
+            if(RedisUtil.isContainsKey(userId)){
+                System.out.println("redis");
+                player = RedisUtil.getPlayer(userId);
+            }
+                //如果没在redis里
+            else{
+                System.out.println("MySQL");
+                player = userService.getPlayer(userId);
+            }
             userMap.put(userId,ctx.channel().id());
 //            msg.setMsgCode(CODE.SUCCESS);
             msg.setObj(player);

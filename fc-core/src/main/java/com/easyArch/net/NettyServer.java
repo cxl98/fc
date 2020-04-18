@@ -7,25 +7,30 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+@Controller
+@PropertySource("classpath:config.properties")
+public class NettyServer{
 
-public class NettyServer implements Runnable{
+    @Value("#{${netty.port}}")
     private int port;
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
-    private Thread nserver;
 
-    static Serializer serializer = new ProtoStuffSerializer();
+    @Autowired
+    private NettyServerInitializer nettyServerInitializer;
 
-    @Override
-    public void run() {
-        bossGroup = new NioEventLoopGroup();
-        workerGroup = new NioEventLoopGroup();
+    public void start() {
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
         try{
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup,workerGroup);
+            b.group(bossGroup, workerGroup);
             b.channel(NioServerSocketChannel.class);
-            b.childHandler(new NettyServerInitializer());
+            b.childHandler(nettyServerInitializer);
 
             ChannelFuture f = b.bind(port).sync();
             f.channel().closeFuture().sync();
@@ -38,13 +43,5 @@ public class NettyServer implements Runnable{
         }
     }
 
-    private NettyServer(int port){
-        this.port = port;
 
-    }
-
-    public static void main(String[] args) {
-
-        new Thread(new NettyServer(8888)).start();
-    }
 }
