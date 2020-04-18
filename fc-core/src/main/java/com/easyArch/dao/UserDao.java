@@ -2,7 +2,9 @@ package com.easyArch.dao;
 
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserDao {
 
 

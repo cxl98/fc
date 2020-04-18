@@ -4,7 +4,7 @@ import com.easyArch.utils.serialize.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-
+import org.springframework.stereotype.Component;
 
 public class NettyEncoder extends MessageToByteEncoder<Object> {
     private Class<?> genericClass;

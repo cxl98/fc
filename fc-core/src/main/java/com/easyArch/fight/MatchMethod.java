@@ -1,4 +1,4 @@
-package com.easyArch.service;
+package com.easyArch.fight;
 
 public interface MatchMethod  {
 

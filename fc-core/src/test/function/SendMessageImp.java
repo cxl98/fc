@@ -3,17 +3,12 @@ package function;
 import com.easyArch.entity.Attribute;
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
-import com.easyArch.service.model.Action;
-import com.easyArch.service.model.Operation;
+import com.easyArch.fight.model.Action;
+import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Robot;
 
-/**
- * 这里写上需要调用的类
- *
- * 没有用单测。。。因为需要测流程啊，多线程啊，不太会灵活运用....
- */
 public class SendMessageImp {
 
 
