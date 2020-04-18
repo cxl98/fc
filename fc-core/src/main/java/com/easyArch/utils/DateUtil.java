@@ -3,7 +3,7 @@ package com.easyArch.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DataUtil {
+public class DateUtil {
     private static String idFormat="yyyyMMddHHmm";
     private static Date mDate ;
     private static SimpleDateFormat sDate;

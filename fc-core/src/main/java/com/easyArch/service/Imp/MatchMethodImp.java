@@ -1,6 +1,6 @@
-package com.easyArch.fight.Imp;
+package com.easyArch.service.Imp;
 
-import com.easyArch.fight.MatchMethod;
+import com.easyArch.service.MatchMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
