@@ -35,9 +35,6 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
         pool.execute(new Runnable() {
             @Override
             public void run() {
-                if(invoker==null){
-                    System.out.println("xxx");
-                }
                 ctx.writeAndFlush(invoker.handle(ctx,msg));
             }
         });

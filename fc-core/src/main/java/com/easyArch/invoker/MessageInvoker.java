@@ -15,7 +15,6 @@ import io.netty.channel.ChannelId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -103,13 +102,6 @@ public class MessageInvoker {
             msg.setMsgCode(CODE.LOGIN);
             msg.setObj("登录失败,用户名或密码错误");
         }
-//        PlayerInfo player = (PlayerInfo)msg.getObj();
-//        String userId = player.getUserId();
-//        System.out.println("userId: "+userId);
-//        userMap.put(userId,ctx.channel().id());
-//        //模拟存储到服务器缓存(redis)
-//        playerInfoMap.put(userId,player);
-//        msg.setMsgCode(CODE.SUCCESS);
         return msg;
     }
 
