@@ -1,8 +1,8 @@
 package function;
 
-import com.easyArch.entity.UserInfo;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
+import com.easyArch.model.Message;
+import com.easyArch.model.UserInfo;
+import com.easyArch.model.code.CODE;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -19,7 +19,7 @@ public class TestMatch {
         message.setMsgCode(CODE.LOGIN);
 
         UserInfo p1 = new UserInfo();
-        p1.setUserId("18539403150");
+        p1.setUserId("aaaa");
         p1.setUserPwd("123456");
 
         message.setObj(p1);
@@ -42,7 +42,7 @@ public class TestMatch {
                     e.printStackTrace();
                 }
                 message.setMsgCode(CODE.MATCH);
-                message.setObj("18539403150");
+                message.setObj("aaaa");
                 client.sendMessage(message);
             }
         }).start();
@@ -66,7 +66,7 @@ public class TestMatch {
 //                        m.setObj("test1");
 //                        m.setObj("test2");
 //                        m.setObj("test3");
-                        m.setObj("18539403150");
+                        m.setObj("aaaa");
 //                        m.setObj("test5");
 
                         client.sendMessage(m);

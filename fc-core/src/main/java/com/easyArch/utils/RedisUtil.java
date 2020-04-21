@@ -1,25 +1,40 @@
 package com.easyArch.utils;
-
-import com.easyArch.entity.PlayerInfo;
+import com.easyArch.model.PlayerInfo;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+//@Configuration
+@PropertySource("classpath:config.properties")
 public class RedisUtil {
 
     private static StatefulRedisConnection<String,String> connection;
     private static RedisUtil redisUtil = new RedisUtil();
     private static RedisCommands<String,String> commands ;
 
+    /*
+    为啥一获取就是空呢！
+     */
+    @Value("${server.ip}")
+    private  String host;
+
+    @Value("#{${redis.port}}")
+    private  int port;
+
     private RedisUtil(){
         RedisURI uri = RedisURI.builder()
-                .withHost("localhost")
+                .withHost("47.93.225.242")
                 .withPort(6379)
+                .withPassword("19990315")
                 .withTimeout(Duration.of(10, ChronoUnit.SECONDS))
                 .build();                                         //创建单机连接信息
 

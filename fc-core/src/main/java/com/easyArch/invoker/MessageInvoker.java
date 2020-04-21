@@ -1,33 +1,31 @@
 package com.easyArch.invoker;
 
 import com.easyArch.factory.*;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
+
+import com.easyArch.model.Message;
+import com.easyArch.model.code.CODE;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Resource;
 
-@Service
+
+@Component
 public class MessageInvoker {
-
-
-    private Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
-
-    @Autowired
-    MessageAbstractFactory factory ;
 
     //服务器redis缓存一份玩家基本信息
     //public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
 
+
     public Message handle(ChannelHandlerContext ctx, Message msg){
         int code = msg.getMsgCode();
 
-        if(code<=CODE.USER_TYPE){
-            factory = new UserFactory(ctx);
+        MessageAbstractFactory factory;
+
+        if(code<= CODE.USER_TYPE){
+            factory = new UserFactory();
+            factory.setCtx(ctx);
         }
         //打机器人
         else if (code == CODE.FIGHT){
@@ -46,16 +44,39 @@ public class MessageInvoker {
     }
 
 
+//    @Autowired
+//    private UserFactory userFactory;
+//
+//    @Autowired
+//    private MonsterFactory monsterFactory;
+//
+//    @Autowired
+//    private MatchFactory matchFactory;
+//
+//    @Autowired
+//    private ExceptionFactory exceptionFactory;
 
+    //服务器redis缓存一份玩家基本信息
+    //public static Map<String, PlayerInfo> playerInfoMap = new ConcurrentHashMap<>();
 
-
-
-
-
-
-
-
-
-
-
+//    public Message handle(ChannelHandlerContext ctx, Message msg) {
+//        int code = msg.getMsgCode();
+//
+//        if (code <= CODE.USER_TYPE) {
+//            msg = userFactory.handle(msg);
+//        }
+//        //打机器人
+//        else if (code == CODE.FIGHT) {
+//            msg = monsterFactory.handle(msg);
+//        }
+//        //匹配
+//        else if (code <= CODE.MATCH_TYPE) {
+//            msg = matchFactory.handle(msg);
+//        } else {
+//            msg = exceptionFactory.handle(msg);
+//        }
+//
+//        return msg;
+//
+//    }
 }

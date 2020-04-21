@@ -1,16 +1,19 @@
 package com.easyArch.net;
 
 import com.easyArch.invoker.MessageInvoker;
-import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import com.easyArch.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -21,16 +24,18 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
     @Autowired
     private MessageInvoker invoker ;
 
-    public static ExecutorService pool = Executors.newFixedThreadPool(20);
+    private static ExecutorService pool = Executors.newFixedThreadPool(20);
 
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
+    public static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
         int code = msg.getMsgCode();
         System.out.println("code:"+code);
         System.out.println("------reading------");
+        System.out.println(msg.getObj());
         pool.execute(new Runnable() {
             @Override
             public void run() {
@@ -49,6 +54,7 @@ public class MessageHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
 //        MessageInvoker.userMap.keySet().
+        System.out.println("-------UnRegist-------");
         super.channelUnregistered(ctx);
     }
 }

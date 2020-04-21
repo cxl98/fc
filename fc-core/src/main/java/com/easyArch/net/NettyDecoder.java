@@ -1,6 +1,6 @@
 package com.easyArch.net;
 
-import com.easyArch.utils.serialize.Serializer;
+import com.easyArch.serialize.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;

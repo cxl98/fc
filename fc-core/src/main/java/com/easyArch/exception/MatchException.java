@@ -1,7 +1,7 @@
 package com.easyArch.exception;
 
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
+import com.easyArch.model.Message;
+import com.easyArch.model.code.CODE;
 
 public class MatchException extends Exception{
 

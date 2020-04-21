@@ -1,6 +1,7 @@
 package com.easyArch.factory;
 
-import com.easyArch.net.model.Message;
+
+import com.easyArch.model.Message;
 import org.springframework.stereotype.Component;
 
 @Component

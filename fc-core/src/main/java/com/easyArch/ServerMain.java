@@ -9,7 +9,6 @@ public class ServerMain {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(NettyConfig.class);
 
-
         context.getBean(NettyServer.class);
     }
 }

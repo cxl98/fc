@@ -1,12 +1,8 @@
 package function;
 
-import com.easyArch.entity.Attribute;
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.entity.UserInfo;
-import com.easyArch.factory.model.Action;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
-import com.easyArch.utils.Robot;
+import com.easyArch.model.*;
+import com.easyArch.model.code.Action;
+import com.easyArch.model.code.CODE;
 
 /**
  * 这里写上需要调用的类
@@ -102,7 +98,7 @@ public class SendMessageImp {
      * @param attr 变化后的玩家属性
      * @return 消息
      */
-    public Message fight(int action, Robot robot,Attribute attr){
+    public Message fight(int action, Robot robot, Attribute attr){
         Message msg = new Message();
         msg.setMsgCode(CODE.FIGHT);
         op.setAction(action);

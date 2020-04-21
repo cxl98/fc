@@ -1,10 +1,12 @@
 package com.easyArch.dao;
 
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.entity.UserInfo;
 
+import com.easyArch.model.PlayerInfo;
+import com.easyArch.model.UserInfo;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserDao {
-
 
     int searchById(String id);
 

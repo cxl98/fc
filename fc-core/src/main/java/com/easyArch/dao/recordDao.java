@@ -1,6 +1,7 @@
 package com.easyArch.dao;
 
-import com.easyArch.entity.other.FightRecord;
+
+import com.easyArch.model.other.FightRecord;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

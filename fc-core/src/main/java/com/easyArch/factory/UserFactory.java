@@ -1,10 +1,11 @@
 package com.easyArch.factory;
 
 import com.easyArch.dao.imp.UserDaoImp;
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.entity.UserInfo;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
+import com.easyArch.model.Message;
+import com.easyArch.model.PlayerInfo;
+import com.easyArch.model.UserInfo;
+import com.easyArch.model.code.CODE;
+import com.easyArch.net.MessageHandler;
 import com.easyArch.utils.RedisUtil;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,11 @@ import org.springframework.stereotype.Component;
 /*
     处理用户业务
  */
+
 @Component
 public class UserFactory extends MessageAbstractFactory{
 
-    @Autowired
-    private UserDaoImp dao ;
-
-    public UserFactory(ChannelHandlerContext ctx) {
-        super(ctx);
-    }
+    private UserDaoImp dao = new UserDaoImp();
 
     @Override
     public Message handle(Message msg) {
@@ -61,16 +58,17 @@ public class UserFactory extends MessageAbstractFactory{
             String userId = us.getUserId();
             PlayerInfo player ;
             //如果在redis里
-            if(RedisUtil.isContainsKey(userId)){
-                System.out.println("redis");
-                player = RedisUtil.getPlayer(userId);
-            }
+//            if(RedisUtil.isContainsKey(userId)){
+//                System.out.println("redis");
+//                player = RedisUtil.getPlayer(userId);
+//            }
             //如果没在redis里
-            else{
+//            else{
                 System.out.println("MySQL");
                 player = getPlayer(userId);
-            }
-            userMap.put(userId,ctx.channel().id());
+//            }
+
+            MessageHandler.userMap.put(userId,ctx.channel().id());
 //            msg.setMsgCode(CODE.SUCCESS);
             msg.setObj(player);
         }else{
@@ -109,7 +107,7 @@ public class UserFactory extends MessageAbstractFactory{
         //数据库初始化玩家信息
         if(0!=dao.insertPlayer(player)){
             //redis缓存一份
-            RedisUtil.updatePlayer(player);
+//            RedisUtil.updatePlayer(player);
         }
 
     }

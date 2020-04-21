@@ -28,7 +28,7 @@
                               PlayerInfo.`rank` = #{rank} where userId = #{userId}
     </update>
 
-    <select id="getPlayer" parameterType="com.easyArch.model.PlayerInfo">
+    <select id="getPlayer" resultType="com.easyArch.model.PlayerInfo">
         select * from PlayerInfo where userId = #{userId};
     </select>
 

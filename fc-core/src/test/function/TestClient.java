@@ -1,9 +1,9 @@
 package function;
 
-import com.easyArch.entity.PlayerInfo;
-import com.easyArch.entity.UserInfo;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
+import com.easyArch.model.Message;
+import com.easyArch.model.PlayerInfo;
+import com.easyArch.model.UserInfo;
+import com.easyArch.model.code.CODE;
 import org.junit.Test;
 
 public class TestClient {

@@ -1,12 +1,13 @@
 package com.easyArch.factory;
 
-import com.easyArch.entity.Attribute;
-import com.easyArch.factory.model.Operation;
-import com.easyArch.net.model.Message;
-import com.easyArch.factory.model.Action;
-import com.easyArch.factory.model.BUFF;
-import com.easyArch.utils.Robot;
+import com.easyArch.model.Attribute;
+import com.easyArch.model.Message;
+import com.easyArch.model.Operation;
+import com.easyArch.model.Robot;
+import com.easyArch.model.code.Action;
+import com.easyArch.model.code.BUFF;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class MonsterFactory extends MessageAbstractFactory {

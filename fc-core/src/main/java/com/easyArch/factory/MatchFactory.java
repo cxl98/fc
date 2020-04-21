@@ -1,9 +1,9 @@
 package com.easyArch.factory;
 
-import com.easyArch.factory.model.Operation;
+import com.easyArch.model.Message;
+import com.easyArch.model.Operation;
+import com.easyArch.model.code.CODE;
 import com.easyArch.net.MessageHandler;
-import com.easyArch.net.model.CODE;
-import com.easyArch.net.model.Message;
 import com.easyArch.utils.RedisUtil;
 
 import io.netty.channel.ChannelId;
@@ -36,7 +36,7 @@ public class MatchFactory extends MessageAbstractFactory implements MatchMethod 
     private Message handleFight(Message msg){
         Object obj = msg.getObj();
         String enemy = ((Operation)obj).getEnemyId();
-        ChannelId enemyId = userMap.get(enemy);
+        ChannelId enemyId = MessageHandler.userMap.get(enemy);
         //将你的操作直接发给敌人的客户端去处理
         MessageHandler.group.find(enemyId).writeAndFlush(msg);
         Message m = new Message();
@@ -92,7 +92,7 @@ public class MatchFactory extends MessageAbstractFactory implements MatchMethod 
             Message toEnemy = new Message();
             toEnemy.setMsgCode(CODE.ENEMY);
             toEnemy.setObj(self);
-            MessageHandler.group.find(userMap.get(enemy)).writeAndFlush(toEnemy);
+            MessageHandler.group.find(MessageHandler.userMap.get(enemy)).writeAndFlush(toEnemy);
         }
         return msg;
     }

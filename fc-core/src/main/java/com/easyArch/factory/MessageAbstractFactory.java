@@ -1,20 +1,16 @@
 package com.easyArch.factory;
 
-import com.easyArch.net.model.Message;
+
+import com.easyArch.model.Message;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public abstract class MessageAbstractFactory {
 
     ChannelHandlerContext ctx;
-
-    static Map<String, ChannelId> userMap = new ConcurrentHashMap<>();
-
 
     /*
     必须实现的方法
@@ -22,21 +18,16 @@ public abstract class MessageAbstractFactory {
     public abstract Message handle(Message msg);
 
 
-
-
-    MessageAbstractFactory(ChannelHandlerContext ctx){
-        this.ctx = ctx;
+    @Autowired
+    MessageAbstractFactory(){
         /*
         ...
         ...
          */
     }
 
-    MessageAbstractFactory(){
-        /*
-        ...
-        ...
-         */
+    public void setCtx(ChannelHandlerContext ctx){
+        this.ctx = ctx;
     }
 
     //每个工厂都会有的一些方法不必抽象
