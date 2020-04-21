@@ -22,6 +22,7 @@
         <module>fc-word</module>
         <module>fc-center</module>
         <module>fc-client</module>
+        <module>fc-commons</module>
     </modules>
 
 </project>

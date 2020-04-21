@@ -1,4 +1,4 @@
-package com.easyArch.net.model;
+package model.code;
 
 public class CODE {
 

@@ -1,7 +1,5 @@
 package com.easyArch.net;
 
-import com.easyArch.utils.serialize.ProtoStuffSerializer;
-import com.easyArch.utils.serialize.Serializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -10,8 +8,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+
+import javax.annotation.PostConstruct;
 
 @Controller
 @PropertySource("classpath:config.properties")
@@ -23,6 +22,7 @@ public class NettyServer{
     @Autowired
     private NettyServerInitializer nettyServerInitializer;
 
+    @PostConstruct
     public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

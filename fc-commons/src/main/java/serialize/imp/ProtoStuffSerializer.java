@@ -1,4 +1,4 @@
-package com.easyArch.utils.serialize;
+package serialize.imp;
 
 
 import io.protostuff.LinkedBuffer;
@@ -7,6 +7,7 @@ import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.springframework.objenesis.Objenesis;
 import org.springframework.objenesis.ObjenesisStd;
+import serialize.Serializer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

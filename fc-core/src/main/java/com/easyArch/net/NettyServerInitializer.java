@@ -3,7 +3,7 @@ package com.easyArch.net;
 
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Beat;
-import com.easyArch.utils.serialize.ProtoStuffSerializer;
+import com.easyArch.utils.serialize.imp.ProtoStuffSerializer;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;

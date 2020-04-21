@@ -33,14 +33,16 @@ public class RedisUtil {
         return connection.sync();
     }
 
-    public static void updatePlayer(PlayerInfo playerInfo){
+    public static Boolean updatePlayer(PlayerInfo playerInfo){
         String userId = playerInfo.getUserId();
-        commands.hset(userId,USERNAME,playerInfo.getUserName());
-        commands.hset(userId,FIGHTCOUNT,""+playerInfo.getFightCount());
-        commands.hset(userId,WINCOUNT,""+playerInfo.getWinCount());
-        commands.hset(userId,MONEY,""+playerInfo.getMoney());
-        commands.hset(userId,RANK,""+playerInfo.getRank());
-        commands.hset(userId,CLIMBLEVEL,""+playerInfo.getClimbLevel());
+        return
+                commands.hset(userId,USERNAME,playerInfo.getUserName())&&
+                commands.hset(userId,FIGHTCOUNT,""+playerInfo.getFightCount())&&
+                commands.hset(userId,WINCOUNT,""+playerInfo.getWinCount())&&
+                commands.hset(userId,MONEY,""+playerInfo.getMoney())&&
+                commands.hset(userId,RANK,""+playerInfo.getRank())&&
+                commands.hset(userId,CLIMBLEVEL,""+playerInfo.getClimbLevel());
+
     }
 
     public static void updatePlayerAttribute(String userId,String field,String value){

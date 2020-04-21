@@ -1,10 +1,11 @@
-package com.easyArch.entity;
+package model.code.other;
 
-import lombok.Data;
+
+
+import model.PlayerInfo;
 
 import java.util.List;
 
-@Data
 public class FriendSystem {
 
     private String userId;

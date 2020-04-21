@@ -7,20 +7,20 @@
         select count(userId) from UserInfo where userId = #{userId}
     </select>
 
-    <select id="searchUserById" resultType="com.easyArch.entity.UserInfo">
+    <select id="searchUserById" resultType="com.easyArch.model.UserInfo">
         select * from UserInfo where userId = #{id}
     </select>
 
-    <insert id="insertUser" parameterType="com.easyArch.entity.UserInfo">
+    <insert id="insertUser" parameterType="com.easyArch.model.UserInfo">
         insert into UserInfo(userId, userPwd) values (#{userId},#{userPwd})
     </insert>
 
-    <select id="searchUserByUserInfo" parameterType="com.easyArch.entity.UserInfo"
-            resultType="com.easyArch.entity.UserInfo">
+    <select id="searchUserByUserInfo" parameterType="com.easyArch.model.UserInfo"
+            resultType="com.easyArch.model.UserInfo">
         select userId from UserInfo where userId=#{userId} and userPwd = #{userPwd}
     </select>
 
-    <update id="updatePlayer" parameterType="com.easyArch.entity.PlayerInfo">
+    <update id="updatePlayer" parameterType="com.easyArch.model.PlayerInfo">
         update PlayerInfo set fightCount = #{fightCount} ,
                               winCount = #{winCount},
                               money = #{money},
@@ -28,11 +28,11 @@
                               PlayerInfo.`rank` = #{rank} where userId = #{userId}
     </update>
 
-    <select id="getPlayer" parameterType="com.easyArch.entity.PlayerInfo">
+    <select id="getPlayer" parameterType="com.easyArch.model.PlayerInfo">
         select * from PlayerInfo where userId = #{userId};
     </select>
 
-    <insert id="insertPlayer" parameterType="com.easyArch.entity.PlayerInfo">
+    <insert id="insertPlayer" parameterType="com.easyArch.model.PlayerInfo">
         insert into PlayerInfo(userId, userName, fightCount, winCount, money, climbLevel, PlayerInfo.`rank`)
          values (#{userId},#{userName},#{fightCount},#{winCount},#{money},#{climbLevel},#{rank})
     </insert>

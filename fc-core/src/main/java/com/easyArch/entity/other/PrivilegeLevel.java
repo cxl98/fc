@@ -1,4 +1,4 @@
-package com.easyArch.entity;
+package com.easyArch.entity.other;
 
 public enum PrivilegeLevel {
     GM ,

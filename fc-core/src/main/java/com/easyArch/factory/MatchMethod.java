@@ -1,11 +1,14 @@
-package com.easyArch.service;
+package com.easyArch.factory;
 
-public interface MatchMethod  {
+import org.springframework.stereotype.Component;
+
+@Component
+public interface MatchMethod {
 
     /**
      * 取消匹配
      */
-    void cancel(int rank,String userId);
+    void cancel(int rank, String userId);
 
     void cancel(String userId);
 
@@ -24,7 +27,7 @@ public interface MatchMethod  {
      * @param rank 根据rank分(范围) 寻找队列
      * @return 返回你匹配到的对手id
      */
-    String match(int rank,String userId);
+    String match(int rank, String userId);
 
 
 

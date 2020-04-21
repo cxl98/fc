@@ -1,8 +1,9 @@
-package com.easyArch.utils.serialize;
+package serialize;
 
-import com.easyArch.utils.serialize.imp.ProtoStuffSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import serialize.imp.GsonSerializer;
+import serialize.imp.ProtoStuffSerializer;
 
 public abstract class Serializer {
     private static Logger logger = LoggerFactory.getLogger(Serializer.class);
@@ -13,6 +14,7 @@ public abstract class Serializer {
     public enum SerializerEnum{
 
         PROTOSTUFF(ProtoStuffSerializer.class);
+
 
 
         private Class<? extends Serializer> serializerClass;

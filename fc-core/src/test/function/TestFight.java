@@ -1,8 +1,8 @@
 package function;
 
 import com.easyArch.entity.Attribute;
-import com.easyArch.service.model.Action;
-import com.easyArch.service.model.Operation;
+import com.easyArch.factory.model.Action;
+import com.easyArch.factory.model.Operation;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Robot;
 

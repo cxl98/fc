@@ -4,7 +4,7 @@ import com.easyArch.net.NettyDecoder;
 import com.easyArch.net.NettyEncoder;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Beat;
-import com.easyArch.utils.serialize.ProtoStuffSerializer;
+import com.easyArch.utils.serialize.imp.ProtoStuffSerializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

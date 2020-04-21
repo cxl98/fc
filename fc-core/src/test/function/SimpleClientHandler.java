@@ -1,7 +1,7 @@
 package function;
 
-import com.easyArch.service.model.Action;
-import com.easyArch.service.model.Operation;
+import com.easyArch.factory.model.Action;
+import com.easyArch.factory.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import io.netty.channel.ChannelHandlerContext;

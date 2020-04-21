@@ -1,4 +1,4 @@
-package com.easyArch.entity;
+package model.code.other;
 
 public enum  SKILLS {
     STONE,

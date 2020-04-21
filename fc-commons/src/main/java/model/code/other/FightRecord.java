@@ -1,4 +1,4 @@
-package com.easyArch.entity;
+package model.code.other;
 
 import lombok.Data;
 

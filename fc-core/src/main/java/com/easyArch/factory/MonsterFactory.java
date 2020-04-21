@@ -1,26 +1,27 @@
-package com.easyArch.service.Imp;
-
+package com.easyArch.factory;
 
 import com.easyArch.entity.Attribute;
-import com.easyArch.service.model.Action;
-import com.easyArch.service.model.BUFF;
-import com.easyArch.service.model.Operation;
+import com.easyArch.factory.model.Operation;
+import com.easyArch.net.model.Message;
+import com.easyArch.factory.model.Action;
+import com.easyArch.factory.model.BUFF;
 import com.easyArch.utils.Robot;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class MonsterImp {
-    private Robot robot = null;
+@Component
+public class MonsterFactory extends MessageAbstractFactory {
+    private Robot robot;
     private int level ;
     private int react ;
 
-
-    public Object getObj(Object o){
-        Operation op = (Operation)o;
+    @Override
+    public Message handle(Message msg) {
+        Operation op = (Operation)msg.getObj();
         level = op.getLevel();
         react = op.getAction();
+        //start
         if(Action.START==react&&null==robot){
-            setRobot(level);
+            this.robot = new Robot(level);
             op.setRobot(robot);
         }else if(robot!=null){
             Attribute attr = op.getAttribute();
@@ -33,17 +34,8 @@ public class MonsterImp {
             System.out.println("Invalid!");
             op.setAction(Action.INVALID);
         }
-        //返回处理后的操作
-        return op;
-    }
-
-    public Robot setRobot(){
-        this.robot = new Robot();
-        return robot;
-    }
-
-    private void setRobot(int level){
-        this.robot = new Robot(level);
+        msg.setObj(op);
+        return msg;
     }
 
     private Attribute fightRound(Attribute player, int action){
@@ -94,4 +86,5 @@ public class MonsterImp {
         react = Action.INVALID;
         return player;
     }
+
 }
