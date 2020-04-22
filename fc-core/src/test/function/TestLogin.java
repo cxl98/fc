@@ -1,8 +1,8 @@
 package function;
 
-import com.easyArch.model.Message;
-import com.easyArch.model.UserInfo;
-import com.easyArch.model.code.CODE;
+import com.easyarch.model.Message;
+import com.easyarch.model.UserInfo;
+import com.easyarch.model.code.CODE;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -16,13 +16,15 @@ public class TestLogin {
         NettyClient client = new NettyClient();
 
         Message message = new Message();
-        message.setMsgCode(CODE.REGIST);
+        message.setMsgCode(CODE.LOGIN);
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId("bbbb");
+        userInfo.setUserId("iiii");
         userInfo.setUserPwd("123456");
         message.setObj(userInfo);
         client.sendMessage(message);
+
+
 
 //        UserInfo userInfo = new UserInfo();
 //        userInfo.setUserId("18539403150");

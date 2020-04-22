@@ -1,10 +1,10 @@
 package function;
 
-import com.easyArch.model.Message;
-import com.easyArch.net.NettyDecoder;
-import com.easyArch.net.NettyEncoder;
-import com.easyArch.serialize.imp.ProtoStuffSerializer;
-import com.easyArch.utils.Beat;
+import com.easyarch.model.Message;
+import com.easyarch.net.NettyDecoder;
+import com.easyarch.net.NettyEncoder;
+import com.easyarch.serialize.imp.ProtoStuffSerializer;
+import com.easyarch.utils.Beat;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

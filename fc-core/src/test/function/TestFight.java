@@ -1,10 +1,10 @@
 package function;
 
-import com.easyArch.model.Attribute;
-import com.easyArch.model.Message;
-import com.easyArch.model.Operation;
-import com.easyArch.model.Robot;
-import com.easyArch.model.code.Action;
+import com.easyarch.model.Attribute;
+import com.easyarch.model.Message;
+import com.easyarch.model.Operation;
+import com.easyarch.model.Robot;
+import com.easyarch.model.code.Action;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

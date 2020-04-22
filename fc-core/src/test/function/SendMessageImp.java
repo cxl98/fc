@@ -1,8 +1,8 @@
 package function;
 
-import com.easyArch.model.*;
-import com.easyArch.model.code.Action;
-import com.easyArch.model.code.CODE;
+import com.easyarch.model.*;
+import com.easyarch.model.code.Action;
+import com.easyarch.model.code.CODE;
 
 /**
  * 这里写上需要调用的类
