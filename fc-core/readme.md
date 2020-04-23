@@ -10,4 +10,4 @@
 
 ### com.easyArch.invoker----也不知道该咋起名，未来想用设计模式优化一下，减少重复代码，增加复用性
 
-
+ ![avatar](pattern.jpg)
