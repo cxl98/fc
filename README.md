@@ -13,4 +13,4 @@
 
 好吧，起名字有点low
 
- ![avatar](项目.jpg)
+ ![avatar](project.png)
