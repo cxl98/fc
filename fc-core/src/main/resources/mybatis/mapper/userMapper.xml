@@ -16,28 +16,44 @@
         select count(userId) from UserInfo where userId = #{userId}
     </select>
 
+<<<<<<< HEAD
 <!--    <select id="searchByName" resultType="Integer">-->
 <!--        select count(userName) from UserInfo where userName = #{userName}-->
 <!--    </select>-->
 
     <select id="searchUserById" resultType="com.easyArch.entity.UserInfo">
+=======
+    <select id="searchUserById" resultType="com.easyarch.model.UserInfo">
+>>>>>>> e9e232c31600fc0c463fbcdcee7ab33752014b6e
         select * from UserInfo where userId = #{id}
     </select>
 
-    <insert id="insertUser" parameterType="com.easyArch.entity.UserInfo">
+    <insert id="insertUser" parameterType="com.easyarch.model.UserInfo">
         insert into UserInfo(userId, userPwd) values (#{userId},#{userPwd})
     </insert>
 
-    <select id="searchUserByUserInfo" parameterType="com.easyArch.entity.UserInfo"
-            resultType="com.easyArch.entity.UserInfo">
+    <select id="searchUserByUserInfo" parameterType="com.easyarch.model.UserInfo"
+            resultType="com.easyarch.model.UserInfo">
         select userId from UserInfo where userId=#{userId} and userPwd = #{userPwd}
     </select>
 
-    <update id="updatePlayer" parameterType="com.easyArch.entity.PlayerInfo">
+    <update id="updatePlayer" parameterType="com.easyarch.model.PlayerInfo">
         update PlayerInfo set fightCount = #{fightCount} ,
                               winCount = #{winCount},
                               money = #{money},
                               climbLevel = #{climbLevel},
                               PlayerInfo.`rank` = #{rank} where userId = #{userId}
     </update>
+<<<<<<< HEAD
+=======
+
+    <select id="getPlayer" resultType="com.easyarch.model.PlayerInfo">
+        select * from PlayerInfo where userId = #{userId};
+    </select>
+
+    <insert id="insertPlayer" parameterType="com.easyarch.model.PlayerInfo">
+        insert into PlayerInfo(userId, userName, fightCount, winCount, money, climbLevel, PlayerInfo.`rank`)
+         values (#{userId},#{userName},#{fightCount},#{winCount},#{money},#{climbLevel},#{rank})
+    </insert>
+>>>>>>> e9e232c31600fc0c463fbcdcee7ab33752014b6e
 </mapper>

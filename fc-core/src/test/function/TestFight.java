@@ -1,5 +1,6 @@
 package function;
 
+<<<<<<< HEAD
 import com.easyArch.entity.Attribute;
 import com.easyArch.entity.UserInfo;
 import com.easyArch.fight.model.Action;
@@ -7,6 +8,13 @@ import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Robot;
+=======
+import com.easyarch.model.Attribute;
+import com.easyarch.model.Message;
+import com.easyarch.model.Operation;
+import com.easyarch.model.Robot;
+import com.easyarch.model.code.Action;
+>>>>>>> e9e232c31600fc0c463fbcdcee7ab33752014b6e
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.easyArch.scc</groupId>
+    <groupId>com.easyarch.scc</groupId>
     <artifactId>fc</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -22,6 +22,7 @@
         <module>fc-word</module>
         <module>fc-center</module>
         <module>fc-client</module>
+        <module>fc-commons</module>
     </modules>
 
 </project>

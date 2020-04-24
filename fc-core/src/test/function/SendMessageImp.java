@@ -1,5 +1,6 @@
 package function;
 
+<<<<<<< HEAD
 import com.easyArch.entity.Attribute;
 import com.easyArch.entity.PlayerInfo;
 import com.easyArch.entity.UserInfo;
@@ -8,6 +9,11 @@ import com.easyArch.fight.model.Operation;
 import com.easyArch.net.model.CODE;
 import com.easyArch.net.model.Message;
 import com.easyArch.utils.Robot;
+=======
+import com.easyarch.model.*;
+import com.easyarch.model.code.Action;
+import com.easyarch.model.code.CODE;
+>>>>>>> e9e232c31600fc0c463fbcdcee7ab33752014b6e
 
 public class SendMessageImp {
 
@@ -98,7 +104,7 @@ public class SendMessageImp {
      * @param attr 变化后的玩家属性
      * @return 消息
      */
-    public Message fight(int action, Robot robot,Attribute attr){
+    public Message fight(int action, Robot robot, Attribute attr){
         Message msg = new Message();
         msg.setMsgCode(CODE.FIGHT);
         op.setAction(action);
